@@ -1,0 +1,156 @@
+---
+name: telegraf
+
+templates:
+  bin/telegraf_ctl.erb: bin/telegraf_ctl
+  config/telegraf.conf.erb: config/telegraf.conf
+
+packages:
+- telegraf
+
+consumes:
+  - name: influxdb
+    type: influxdb
+    optional: true
+
+properties: 
+
+  telegraf.agent.logfile:
+    default: "/var/vcap/sys/log/telegraf"
+
+  telegraf.agent.inputs.influxdb.enabled:
+    default: false
+
+  telegraf.agent.inputs.influxdb.urls:
+    default: ["http://localhost:8086/debug/vars"]
+
+  telegraf.agent.inputs.syslog.server:
+    default: "tcp://localhost:6514"
+
+  telegraf.agent.inputs.nginx.enabled:
+    default: false
+
+  telegraf.agent.inputs.nginx.urls:
+    default: "[]"
+
+  telegraf.agent.inputs.nginx.insecure_skip_verify:
+    default: false
+
+  telegraf.agent.inputs.nginx.response_timeout:
+    default: "5s"
+
+  telegraf.agent.inputs.consul.enabled:
+    default: false
+
+  telegraf.agent.inputs.consul.address:
+    default: "localhost"
+
+  telegraf.agent.inputs.consul.scheme:
+    default: "http"
+
+  telegraf.agent.inputs.consul.username:
+    description: "Consul Authentication username"
+
+  telegraf.agent.inputs.consul.password:
+    description: "Consul Authentication password"
+
+  telegraf.agent.inputs.consul.tag_delimiter:
+    default: ":"
+
+  telegraf.agent.inputs.syslog.enabled:
+    description: "Enables syslog input"
+    default: false
+
+  telegraf.agent.inputs.syslog.server:
+    description: "Specify an ip or hostname with port"
+
+  telegraf.agent.inputs.vm_stats.enabled:
+    description: "Enable VM stats"
+    default: true
+
+  telegraf.agent.interval:
+    description: "Default data collection interval for all inputs"
+    default: "5s"
+  
+  telegraf.agent.round_interval:
+    description: "Rounds collection interval to 'interval'. ie, if interval='10s' then always collect on :00, :10, :20, etc."
+    default: true
+  
+  telegraf.agent.metric_batch_size:
+    description: "This controls the size of writes that Telegraf sends to output plugins."
+    default: 1000
+  
+  telegraf.agent.metric_buffer_limit:
+    description: "For failed writes, telegraf will cache metric_buffer_limit metrics for each output, and will flush this buffer on a successful write."
+    default: 10000
+  
+  telegraf.agent.collection_jitter:
+    description: "Collection jitter is used to jitter the collection by a random amount."
+    default: "0s"
+  
+  telegraf.agent.flush_interval:
+    description: "Default flushing interval for all outputs. Maximum flush_interval will be flush_interval + flush_jitter"
+    default: "5s"
+  
+  telegraf.agent.flush_jitter:
+    description: "Jitter the flush interval by a random amount. This is primarily to avoid large write spikes for users running a large number of telegraf instances ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s"
+    default: "0s"
+  
+  telegraf.agent.precision:
+    description: "By default or when set to '0s', precision will be set to the same timestamp order as the collection interval, with the maximum being 1s."
+    default: ""
+  
+  telegraf.agent.debug:
+    description: "Run telegraf with debug log messages"
+    default: false
+  
+  telegraf.agent.quiet:
+    description: "Run telegraf in quiet mode (error log messages only)."
+    default: false
+  
+  telegraf.agent.logfile:
+    description: "Specify the log file name. The empty string means to log to stderr."
+    default: "/var/vcap/sys/log/telegraf/telegraf.log"
+  
+  telegraf.agent.hostname:
+    description: "Override default hostname, if empty use os.Hostname()"
+    default: ""
+  
+  telegraf.agent.omit_hostname:
+    description: "If set to true, do no set the 'host' tag in the telegraf agent."
+    default: "false"
+
+  telegraf.agent.outputs.influxdb.enabled:
+    description: "Enable configuration for influxdb output"
+    default: "true"
+  
+  telegraf.agent.outputs.influxdb.urls:
+    description: "The full HTTP or UDP URL for your InfluxDB instance, e.g. ['http://127.0.0.1:8086']"
+  
+  telegraf.agent.outputs.influxdb.database:
+    description: "The target database for metrics; will be created as needed. For UDP url endpoint database needs to be configured on server side."
+    default: "telegraf"
+
+  telegraf.agent.outputs.influxdb.skip_database_creation:
+    description: "If true, no CREATE DATABASE queries will be sent. Set to true when using Telegraf with a user without permissions to create databases or when the database already exists."
+    default: false
+  
+  telegraf.agent.outputs.influxdb.retention_policy:
+    description: "Name of existing retention policy to write to.  Empty string writes to the default retention policy.  Only takes effect when using HTTP."
+    default: ""
+
+  telegraf.agent.outputs.influxdb.write_consistency:
+    description: "Write consistency (clusters only), can be: 'any', 'one', 'quorum', 'all'. Only takes effect when using HTTP."
+    default: "any"
+
+  telegraf.agent.outputs.influxdb.username:
+    description: "HTTP Basic Auth username"
+    default: ""
+  
+  telegraf.agent.outputs.influxdb.password:
+    description: "HTTP Basic Auth password"
+    default: ""
+  
+  telegraf.agent.outputs.influxdb.timeout:
+    description: "Timeout for HTTP messages."
+    default: "5s"

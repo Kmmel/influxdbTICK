@@ -1,0 +1,7 @@
+name: kapacitor
+
+dependencies: []
+
+files:
+  - common/utils.sh
+  - kapacitor/kapacitor-1.5.2_linux_amd64.tar.gz

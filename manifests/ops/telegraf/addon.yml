@@ -1,0 +1,13 @@
+- type: replace
+  path: /addons?/-
+  value: 
+    name: telegraf
+    jobs: 
+    - name: telegraf
+      release: influxdb
+
+- type: replace
+  path: /releases/-
+  value:
+    name: influxdb
+    version: latest

@@ -1,0 +1,7 @@
+# TODO: Add property + code to switch to bpm
+
+check process telegraf
+  with pidfile /var/vcap/sys/run/telegraf/telegraf.pid
+  start program "/var/vcap/jobs/telegraf/bin/telegraf_ctl start"
+  stop program "/var/vcap/jobs/telegraf/bin/telegraf_ctl stop"
+  group vcap

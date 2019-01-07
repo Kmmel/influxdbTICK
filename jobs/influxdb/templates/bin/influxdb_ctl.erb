@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+DATA_DIR=/var/vcap/data/influxdb
+STORE_DIR=/var/vcap/store/influxdb
+LOG_DIR=/var/vcap/sys/log/influxdb
+RUN_DIR=/var/vcap/sys/run/influxdb
+PIDFILE=$RUN_DIR/influxdb.pid
+
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${STORE_DIR} ${DATA_DIR}
+
+source /var/vcap/packages/influxdb/common/utils.sh
+exec 1>> ${LOG_DIR}/$(basename "$0").stdout.log
+exec 2>> ${LOG_DIR}/$(basename "$0").stderr.log
+
+export PATH=/var/vcap/packages/influxdb/bin:${PATH}
+
+case $1 in
+  start)
+    pid_guard ${PIDFILE} "influxd"
+    echo $$ > $PIDFILE
+
+    exec influxd \
+    -config /var/vcap/jobs/influxdb/config/influxdb.conf
+    ;;
+
+  stop)
+    kill_and_wait ${PIDFILE}
+    ;;
+
+  *)
+    echo "Usage: control {start|stop}" >&2
+    exit 1
+    ;;
+esac

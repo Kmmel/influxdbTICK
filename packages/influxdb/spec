@@ -1,0 +1,7 @@
+name: influxdb
+
+dependencies: []
+
+files:
+  - common/utils.sh
+  - influxdb/influxdb-1.7.4_linux_amd64.tar.gz

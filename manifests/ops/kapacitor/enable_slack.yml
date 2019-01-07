@@ -1,0 +1,23 @@
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/enabled
+  value: true
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/workspace
+  value: ((kapacitor_slack_workspace))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/url
+  value: ((kapacitor_slack_url))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/channel
+  value: ((kapacitor_slack_channel))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/global
+  value: ((kapacitor_slack_global))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/slack/state-changes-only
+  value: ((kapacitor_slack_state_changes_only))

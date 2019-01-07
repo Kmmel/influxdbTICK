@@ -1,0 +1,280 @@
+<% if_p('influxdb.reporting-disabled') do | disabled | %>
+reporting-disabled = <%= disabled %>
+<% end %>
+<% if_p('influxdb.bind-address') do | bind_address | %>
+bind-address = "<%= bind_address %>"
+<% end %>
+
+[meta]
+<% if_p('influxdb.meta.dir') do | dir | %>
+  dir = "<%= dir %>"
+<% end %>
+<% if_p('influxdb.meta.retention-autocreate') do | retention_autocreate | %>
+  retention-autocreate = <%= retention_autocreate %>
+<% end %>
+<% if_p('influxdb.meta.logging-enabled') do | logging_enabled | %>
+  logging-enabled = <%= logging_enabled %>
+<% end %>
+
+[data]
+<% if_p('influxdb.data.dir') do | dir | %>
+  dir = "<%= dir %>"
+<% end %>
+<% if_p('influxdb.data.wal-dir') do | wal_dir | %>
+  wal-dir = "<%= wal_dir %>"
+<% end %>
+<% if_p('influxdb.data.query-log-enabled') do | query_log_enabled | %>
+  query-log-query-log-enabled = <%= query_log_enabled %>
+<% end %>
+<% if_p('influxdb.data.cache-max-memory-size') do | cache_max_memory_size | %>
+  cache-max-memory-size = <%= cache_max_memory_size %>
+<% end %>
+<% if_p('influxdb.data.cache-snapshot-memory-size') do | cache_snapshot_memory_size | %>
+  cache-snapshot-memory-size = <%= cache_snapshot_memory_size %>
+<% end %>
+<% if_p('influxdb.data.cache-snapshot-write-cold-duration') do | cache_snapshot_write_cold_duration | %>
+  cache-snapshot-write-cold-duration = "<%= cache_snapshot_write_cold_duration %>"
+<% end %>
+<% if_p('influxdb.data.compact-full-write-cold-duration') do | compact_full_write_cold_duration | %>
+  compact-full-write-cold-duration = "<%= compact_full_write_cold_duration %>"
+<% end %>
+<% if_p('influxdb.data.max-series-per-database') do | max_series_per_database | %>
+  max-series-per-database = <%= max_series_per_database %>
+<% end %>
+<% if_p('influxdb.data.max-values-per-tag') do | max_values_per_tag | %>
+  max-values-per-tag = <%= max_values_per_tag %>
+<% end %>
+<% if_p('influxdb.data.index-version') do | index_version | %>
+  index-version = "<%= index_version %>"
+<% end %>
+<% if_p('influxdb.data.trace-logging-enabled') do | trace_logging_enabled | %>
+  trace-logging-trace-logging-enabled = <%= trace_logging_enabled %>
+<% end %>
+
+[coordinator]
+<% if_p('influxdb.coordinator.write-timeout') do | write_timeout | %>
+  write-timeout = "<%= write_timeout %>"
+<% end %>
+<% if_p('influxdb.coordinator.max-concurrent-queries') do | max_concurrent_queries | %>
+  max-concurrent-queries = <%= max_concurrent_queries %>
+<% end %>
+<% if_p('influxdb.coordinator.query-timeout') do | query_timeout | %>
+  query-timeout = "<%= query_timeout %>"
+<% end %>
+<% if_p('influxdb.coordinator.log-queries-after') do | log_queries_after | %>
+  log-queries-after = "<%= log_queries_after %>"
+<% end %>
+<% if_p('influxdb.coordinator.max-select-point') do | max_select_point | %>
+  max-select-point = <%= max_select_point %>
+<% end %>
+<% if_p('influxdb.coordinator.max-select-series') do | max_select_series | %>
+  max-select-series = <%= max_select_series %>
+<% end %>
+<% if_p('influxdb.coordinator.max-select-buckets') do | max_select_buckets | %>
+  max-select-buckets = <%= max_select_buckets %>
+<% end %>
+
+[retention]
+<% if_p('influxdb.retention.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+<% end %>
+<% if_p('influxdb.retention.check-interval') do | check_interval | %>
+  check-interval = "<%= check_interval %>"
+<% end %>
+
+[shard-precreation]
+  <% if_p('influxdb.shared-precreation.enabled') do | influxdb_enabled | %>
+  enabled = <%= influxdb_enabled %>
+  <% end %>
+  <% if_p('influxdb.shard-precreation.check-interval') do | check_interval | %>
+  check-interval = "<%= check_interval %>"
+  <% end %>
+  <% if_p('influxdb.shard-precreation.advance-period') do | advance_period | %>
+  advance-period = "<%= advance_period %>"
+  <% end %>
+
+[monitor]
+  <% if_p('influxdb.monitor.store-enabled') do | influxdb_store_enabled | %>
+  store-enabled = <%= influxdb_store_enabled %>
+  <% end %>
+  <% if_p('influxdb.monitor.store-database') do | store_database | %>
+  store-database = "<%= store_database %>"
+  <% end %>
+  <% if_p('influxdb.monitor.store-interval') do | store_interval | %>
+  store-interval = "<%= store_interval %>"
+  <% end %>
+
+[subscriber]
+<% if_p('influxdb.subscriber.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+<% end %>
+  <% if_p('influxdb.subscriber.http-timeout') do | http_timeout | %>
+  http-timeout = "<%= http_timeout %>"
+  <% end %>
+  <% if_p('influxdb.subscriber.insecure-skip-verify') do | insecure_skip_verify | %>
+  insecure-skip-verify = <%= insecure_skip_verify %>
+  <% end %>
+  <% if_p('influxdb.subscriber.ca-certs') do | ca_certs | %>
+  ca-certs = "<%= ca_certs %>"
+  <% end %>
+  <% if_p('influxdb.subscriber.write-concurrency') do | write_concurrency | %>
+  write-concurrency = <%= write_concurrency %>
+  <% end %>
+  <% if_p('influxdb.subscriber.write-buffer-size') do | write_buffer_size | %>
+  write-buffer-size = <%= write_buffer_size %>
+  <% end %>
+
+[http]
+  <% if_p('influxdb.http.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+  <% end %>
+  <% if_p('influxdb.http.flux-enabled') do | flux_enabled | %>
+  flux-enabled = <%= flux_enabled %>
+  <% end %>
+  <% if_p('influxdb.http.bind-address') do | bind_address | %>
+  bind-address = "<%= bind_address %>"
+  <% end %>
+  <% if_p('influxdb.http.auth-enabled') do | auth_enabled | %>
+  auth-enabled = <%= auth_enabled %>
+  <% end %>
+  <% if_p('influxdb.http.log-enabled') do | log_enabled | %>
+  log-enabled = <%= log_enabled %>
+  <% end %>
+  <% if_p('influxdb.http.write-tracing') do | write_tracing | %>
+  write-tracing = <%= write_tracing %>
+  <% end %>
+  <% if_p('influxdb.http.pprof-enabled') do | pprof_enabled | %>
+  pprof-enabled = <%= pprof_enabled %>
+  <% end %>
+  <% if_p('influxdb.http.https-enabled') do | https_enabled | %>
+  https-enabled = <%= https_enabled %>
+  # TODO:  https-certificate = "/etc/ssl/influxdb.pem"
+  <% end %>
+  <% if_p('influxdb.http.https-certificate') do | https_certificate | %>
+  https-certificate = "<%= https_certificate %>"
+  <% end %>
+  <% if_p('influxdb.http.https-private-key') do | https_private_key | %>
+  https-private-key = "<%= https_private_key %>"
+  <% end %>
+  <% if_p('influxdb.http.max-row-limit') do | max_row_limit | %>
+  max-row-limit = <%= max_row_limit %>
+  <% end %>
+  <% if_p('influxdb.http.max-connection-limit') do | max_connection_limit | %>
+  max-connection-limit = <%= max_connection_limit %>
+  <% end %>
+  <% if_p('influxdb.http.shared-secret') do | shared_secret | %>
+  shared-secret = "<%= shared_secret %>"
+  <% end %>
+  <% if_p('influxdb.http.realm') do | realm | %>
+  realm = "<%= realm %>"
+  <% end %>
+  <% if_p('influxdb.http.unix-socket-enabled') do | unix_socket_enabled | %>
+  unix-socket-enabled = <%= unix_socket_enabled %>
+  <% end %>
+  <% if_p('influxdb.http.bind-socket') do | bind_socket | %>
+  bind-socket = "<%= bind_socket %>"
+  <% end %>
+
+[[graphite]]
+  <% if_p('influxdb.graphite.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+  <% end %>
+  <% if_p('influxdb.graphite.bind-address') do | bind_address | %>
+  bind-address = "<%= bind_address %>"
+  <% end %>
+  <% if_p('influxdb.graphite.database') do | database | %>
+  database = "<%= database %>"
+  <% end %>
+  <% if_p('influxdb.graphite.retention-policy') do | retention_policy | %>
+  retention-policy = "<%= retention_policy %>"
+  <% end %>
+  <% if_p('influxdb.graphite.protocol') do | protocol | %>
+  protocol = "<%= protocol %>"
+  <% end %>
+  <% if_p('influxdb.graphite.batch-size') do | batch_size | %>
+  batch-size = <%= batch_size %>
+  <% end %>
+  <% if_p('influxdb.graphite.batch-pending') do | batch_pending | %>
+  batch-pending = <%= batch_pending %>
+  <% end %>
+  <% if_p('influxdb.graphite.batch-timeout') do | batch_timeout | %>
+  batch-timeout = "<%= batch_timeout %>"
+  <% end %>
+  <% if_p('influxdb.graphite.consistency-level') do | consistency_level | %>
+  consistency-level = "<%= consistency_level %>"
+  <% end %>
+  <% if_p('influxdb.graphite.separator') do | separator | %>
+  separator = "<%= separator %>"
+  <% end %>
+  <% if_p('influxdb.graphite.udp-read-buffer') do | udp_read_buffer | %>
+  udp-read-buffer = <%= udp_read_buffer %>
+  <% end %>
+  <% if_p('influxdb.graphite.templates') do | templates | %>
+  templates = <%= templates %>
+  <% end %>
+
+#[[collectd]]
+#  enabled = false
+#  bind-address = ":25826"
+#  database = "collectd"
+#  retention-policy = ""
+#  batch-size = 5000
+#  batch-pending = 10
+#  batch-timeout = "10s"
+#  read-buffer = 0
+#  typesdb = "/usr/share/collectd/types.db"
+#  security-level = "none"
+#  auth-file = "/etc/collectd/auth_file"
+#
+#[[opentsdb]]
+#  enabled = false
+#  bind-address = ":4242"
+#  database = "opentsdb"
+#  retention-policy = ""
+#  consistency-level = "one"
+#  tls-enabled = false
+#  certificate = "/etc/ssl/influxdb.pem"
+#  batch-size = 1000
+#  batch-pending = 5
+#  batch-timeout = "1s"
+#  log-point-errors = true
+
+[[udp]]
+  <% if_p('influxdb.udp.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+  <% end %>
+  <% if_p('influxdb.udp.bind-address') do | bind_address | %>
+  bind-address = "<%= bind_address %>"
+  <% end %>
+  <% if_p('influxdb.udp.database') do | database | %>
+  database = "<%= database %>"
+  <% end %>
+  <% if_p('influxdb.udp.retention-policy') do | retention_policy | %>
+  retention-policy = "<%= retention_policy %>"
+  <% end %>
+  <% if_p('influxdb.udp.batch-size') do | batch_size | %>
+  batch-size = <%= batch_size %>
+  <% end %>
+  <% if_p('influxdb.udp.batch-pending') do | batch_pending | %>
+  batch-pending = <%= batch_pending %>
+  <% end %>
+  <% if_p('influxdb.udp.read-buffer') do | read_buffer | %>
+  read-buffer = <%= read_buffer %>
+  <% end %>
+  <% if_p('influxdb.udp.batch-timeout') do | batch_timeout | %>
+  batch-timeout = "<%= batch_timeout %>"
+  <% end %>
+  <% if_p('influxdb.udp.precision') do | precision | %>
+  precision = "<%= precision %>"
+  <% end %>
+
+[continuous_queries]
+  <% if_p('influxdb.continuous_queries.log-enabled') do | log_enabled | %>
+  log-enabled = <%= log_enabled %>
+  <% end %>
+  <% if_p('influxdb.continuous_queries.enabled') do | enabled | %>
+  enabled = <%= enabled %>
+  <% end %>
+  <% if_p('influxdb.continuous_queries.run-interval') do | run_interval | %>
+  run-interval = "<%= run_interval %>"
+  <% end %>

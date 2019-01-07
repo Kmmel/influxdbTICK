@@ -1,0 +1,34 @@
+addons:
+- jobs:
+  - name: telegraf
+    release: influxdb
+    properties:
+      telegraf:
+        agent:
+          outputs:
+            influxdb:
+              urls: ((influxdb_url))
+          inputs:
+            syslog:
+              enabled: true
+              server: "udp://localhost:6514"
+  name: telegraf
+  exclude:
+    deployments:
+    - influxdb
+- jobs:
+  - name: syslog_forwarder
+    release: syslog
+  name: logs
+  properties:
+    syslog:
+      address: localhost:6514
+      transport: "udp"
+releases:
+- name: influxdb
+  version: 0+dev.108
+- name: syslog
+  sha1: c83bd52bceda8664ad7fd71a787390f3c73068c9
+  url: https://bosh.io/d/github.com/cloudfoundry/syslog-release?v=11.3.0
+  version: 11.3.0
+

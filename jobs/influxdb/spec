@@ -1,0 +1,282 @@
+---
+name: influxdb
+
+templates:
+  bin/influxdb_ctl.erb: bin/influxdb_ctl
+  config/influxdb.conf.erb: config/influxdb.conf
+
+packages:
+- influxdb
+
+provides:
+  - name: influxdb
+    type: influxdb
+    properties:
+      - influxdb.http.bind-address
+      - influxdb.http.https-enabled
+
+properties:
+  influxdb.reporting-disabled:
+    default: false
+
+  influxdb.bind-address:
+    default: ":8088"
+
+  influxdb.meta.dir:
+    default: /var/vcap/store/influxdb/meta
+
+  influxdb.meta.retention-autocreate:
+    default: true
+
+  influxdb.meta.logging-enabled:
+    default: true
+
+  influxdb.data.dir:
+    default: /var/vcap/store/influxdb/data
+
+  influxdb.data.wal-dir:
+    default: /var/vcap/store/influxdb/wal
+
+  influxdb.data.query-log-enabled:
+    default: true
+
+  influxdb.data.cache-max-memory-size:
+   default: 1073741824
+
+  influxdb.data.cache-snapshot-memory-size:
+   default: 26214400
+
+  influxdb.data.cache-snapshot-write-cold-duration:
+    default: "10m0s"
+
+  influxdb.data.compact-full-write-cold-duration:
+    default: "4h0m0s"
+
+  influxdb.data.max-series-per-database:
+    default: 1000000
+
+  influxdb.data.max-values-per-tag:
+    default: 100000
+
+  influxdb.data.index-version:
+    default: "tsi1"
+
+  influxdb.data.trace-logging-enabled:
+    default: false
+
+  influxdb.coordinator.write-timeout:
+    default: "10s"
+
+  influxdb.coordinator.max-concurrent-queries:
+    default: 0
+
+  influxdb.coordinator.query-timeout:
+    default: "0s"
+
+  influxdb.coordinator.log-queries-after:
+    default: "0s"
+
+  influxdb.coordinator.max-select-point:
+    default: 0
+
+  influxdb.coordinator.max-select-series:
+    default: 0
+
+  influxdb.coordinator.max-select-buckets:
+    default: 0
+
+  influxdb.retention.enabled:
+    default: true
+
+  influxdb.retention.check-interval:
+    default: "30m0s"
+
+  influxdb.shard-precreation.enabled:
+    default: false
+
+  influxdb.shard-precreation.check-interval:
+    description: "for example: '10m0s'"
+
+  influxdb.shard-precreation.advance-period:
+    description: "for example: '30m0s"
+
+  influxdb.monitor.store-enabled:
+    default: false
+
+  influxdb.monitor.store-database:
+    description: "for example: '_internal'"
+
+  influxdb.monitor.store-interval:
+    description: "for example: '10s'"
+
+  influxdb.subscriber.enabled:
+    default: false
+
+  influxdb.subscriber.http-timeout:
+    description: "for example: '30s'"
+
+  influxdb.subscriber.insecure-skip-verify:
+    description: "either true or false"
+
+  influxdb.subscriber.ca-certs:
+    description: "# TODO: Needs to be further checked"
+
+  influxdb.subscriber.write-concurrency:
+    description: "for example: 40"
+
+  influxdb.subscriber.write-buffer-size:
+    description: "for example: 1000"
+
+  influxdb.http.enabled:
+    description: "Determines whether the HTTP endpoints are enabled."
+    default: true
+
+  influxdb.http.flux-enabled:
+    description: "Determines whether the Flux query endpoint is enabled."
+    default: true
+
+  influxdb.http.bind-address:
+    description: "The bind address (port) used by the HTTP service."
+    default: ":8086"
+
+  influxdb.http.auth-enabled:
+    description: "Determines whether user authentication is enabled over HTTP and HTTPS."
+    default: false
+
+  influxdb.http.log-enabled:
+    description: "Determines whether HTTP request logging is enabled."
+    default: true
+
+  influxdb.http.write-tracing:
+    description: "Determines whether detailed write logging is enabled."
+    default: false
+
+  influxdb.http.pprof-enabled:
+    description: "Determines whether the '/net/http/pprof' HTTP endpoint is enabled. Useful for troubleshooting and monitoring."
+    default: true
+
+  influxdb.http.https-enabled:
+    description: "Determines whether HTTPS is enabled."
+    default: false
+
+  influxdb.http.https-certificate:
+    description: "The path of the SSL certificate file to use when HTTPS is enabled."
+
+  influxdb.http.https-private-key:
+    description: "Use a separate private key location."
+
+  influxdb.http.max-row-limit:
+    description: "The maximum number of rows that the system can return in a non-chunked query. "
+    default: 0
+
+  influxdb.http.max-connection-limit:
+    description: "The maximum number of connections that may be open at once. New connections that would exceed the limit are dropped."
+    default: 0
+
+  influxdb.http.shared-secret:
+    description: "The shared secret used to validate public API requests using JWT tokens."
+    default: ""
+
+  influxdb.http.realm:
+    description: "The default realm sent back when issuing a basic authentication challenge."
+    default: "InfluxDB"
+
+  influxdb.http.unix-socket-enabled:
+    description: "Enable HTTP service over the UNIX domain socket."
+    default: false
+
+  influxdb.http.bind-socket:
+    description: "The path of the UNIX domain socket."
+
+  influxdb.graphite.enabled:
+    description: "Set to true to enable Graphite input."
+    default: false
+
+  influxdb.graphite.bind-address:
+    description: "The default port."
+    default: ":2003"
+
+  influxdb.graphite.database:
+    description: "The name of the database that you want to write to."
+    default: "graphite"
+
+  influxdb.graphite.retention-policy:
+    description: "The relevant retention policy. An empty string is equivalent to the database’s 'DEFAULT' retention policy."
+    default: ""
+
+  influxdb.graphite.protocol:
+    description: "Set to tcp or udp."
+    default: "tcp"
+
+  influxdb.graphite.batch-size:
+    description: "The input will flush if this many points get buffered."
+    default: 5000
+
+  influxdb.graphite.batch-pending:
+    description: "The number of batches that may be pending in memory."
+    default: 10
+
+  influxdb.graphite.batch-timeout:
+    description: "The input will flush at least this often even if it hasn’t reached the configured batch-size."
+    default: "1s"
+
+  influxdb.graphite.consistency-level:
+    description: "The number of nodes that must confirm the write."
+    default: "one"
+
+  influxdb.graphite.separator:
+    description: "This string joins multiple matching ‘measurement’ values providing more control over the final measurement name."
+    default: "."
+
+  influxdb.graphite.udp-read-buffer:
+    description: "UDP Read buffer size, 0 means OS default."
+    default: 0
+
+  influxdb.graphite.templates:
+    description: "Define graphite mappings"
+
+  influxdb.udp.enabled:
+    description: "Determines whether UDP listeners are enabled."
+    default: true
+
+  influxdb.udp.bind-address:
+    description: ":8089"
+
+  influxdb.udp.database:
+    description: "The name of the database that you want to write to."
+    default: "udp"
+
+  influxdb.udp.retention-policy:
+    description: "The relevant retention policy for your data."
+    default: ""
+
+  influxdb.udp.batch-size:
+    description: "The input will flush if this many points get buffered."
+    default: 5000
+
+  influxdb.udp.batch-pending:
+    description: "The number of batches that may be pending in memory."
+    default: 10
+
+  influxdb.udp.read-buffer:
+    description: "UDP read buffer size, 0 means OS default. UDP listener will fail if set above OS max."
+    default: 0
+
+  influxdb.udp.batch-timeout:
+    description: "The input will flush at least this often even if it hasn’t reached the configured batch-size."
+    default: "1s"
+
+  influxdb.udp.precision:
+    description: "Time precision used when decoding time values.Defaults to nanoseconds which is the default of the database."
+
+  influxdb.continuous_queries.log-enabled:
+    description: "Set to false to disable logging for CQ events."
+    default: true
+
+  influxdb.continuous_queries.enabled:
+    description: "Set to false to disable CQs."
+    default: true
+
+  influxdb.continuous_queries.run-interval:
+    description: "The interval at which InfluxDB checks to see if a CQ needs to run."
+    default: "1s"

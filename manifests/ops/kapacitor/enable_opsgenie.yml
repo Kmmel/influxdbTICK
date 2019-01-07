@@ -1,0 +1,19 @@
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/opsgenie/enabled
+  value: true
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/opsgenie/api-key
+  value: ((kapacitor_opsgenie_api_key))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/opsgenie/url
+  value: ((kapacitor_opsgenie_url))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/opsgenie/recovery-url
+  value: ((kapacitor_opsgenie_recovery_url))
+
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/opsgenie/global
+  value: ((kapacitor_opsgenie_global))

@@ -1,0 +1,144 @@
+[agent]
+  <% if_p('telegraf.agent.interval') do | interval | %>
+  interval = "<%= interval %>"
+  <% end %>
+  <% if_p('telegraf.agent.round_interval') do | round_interval | %>
+  round_interval = <%= round_interval %>
+  <% end %>
+  <% if_p('telegraf.agent.metric_batch_size') do | metric_batch_size | %>
+  metric_batch_size = <%= metric_batch_size %>
+  <% end %>
+  <% if_p('telegraf.agent.metric_buffer_limit') do | metric_buffer_limit | %>
+  metric_buffer_limit = <%= metric_buffer_limit %>
+  <% end %>
+  <% if_p('telegraf.agent.collection_jitter') do | collection_jitter | %>
+  collection_jitter = "<%= collection_jitter %>"
+  <% end %>
+  <% if_p('telegraf.agent.flush_interval') do | flush_interval | %>
+  flush_interval = "<%= flush_interval %>"
+  <% end %>
+  <% if_p('telegraf.agent.flush_jitter') do | flush_jitter | %>
+  flush_jitter = "<%= flush_jitter %>"
+  <% end %>
+  <% if_p('telegraf.agent.precision') do | precision | %>
+  precision = "<%= precision %>"
+  <% end %>
+  <% if_p('telegraf.agent.debug') do | debug | %>
+  debug = <%= debug %>
+  <% end %>
+  <% if_p('telegraf.agent.quiet') do | quiet | %>
+  quiet = <%= quiet %>
+  <% end %>
+  <% if_p('telegraf.agent.logfile') do | logfile | %>
+  logfile = "<%= logfile %>"
+  <% end %>
+  <% if_p('telegraf.agent.hostname') do | hostname | %>
+  hostname = "<%= hostname %>"
+  <% end %>
+  <% if_p('telegraf.agent.omit_hostname') do | omit_hostname | %>
+  omit_hostname = <%= omit_hostname %>
+  <% end %>
+<% if_p('telegraf.agent.outputs.influxdb.enabled') do | enabled | %>
+<% if enabled %>
+[[outputs.influxdb]]
+<%
+  urls = p('telegraf.agent.outputs.influxdb.urls', nil)
+  unless urls
+    if_link('influxdb') do |influxdb|
+      scheme = "http" 
+      scheme = "https" if influxdb.p('influxdb.http.https-enabled')
+      urls = influxdb.instances.map{ |instance| "#{scheme}://#{instance.address}#{influxdb.p('influxdb.http.bind-address')}" }
+    end
+  end
+  urls
+%>
+  urls = <%= urls %>
+  <% if_p('telegraf.agent.outputs.influxdb.database') do | database | %>
+  database = "<%= database %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.skip_database_creation') do | skip_database_creation | %>
+  skip_database_creation = <%= skip_database_creation %>
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.retention_policy') do | retention_policy | %>
+  retention_policy = "<%= retention_policy %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.write_consistency') do | write_consistency | %>
+  write_consistency = "<%= write_consistency %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.username') do | username | %>
+  username = "<%= username %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.password') do | password | %>
+  password = "<%= password %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.influxdb.timeout') do | timeout | %>
+  timeout = "<%= timeout %>"
+  <% end %>
+<% end %>
+<% end %>
+<% if_p('telegraf.agent.inputs.vm_stats.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.cpu]]
+[[inputs.disk]]
+[[inputs.diskio]]
+[[inputs.kernel]]
+[[inputs.mem]]
+[[inputs.processes]]
+[[inputs.swap]]
+[[inputs.system]]
+<% end %>
+<% end %>
+<% if_p('telegraf.agent.inputs.influxdb.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.influxdb]]
+  urls = <%= p('telegraf.agent.inputs.influxdb.urls') %>
+<% end %>
+<% end %>
+<% if_p('telegraf.agent.inputs.syslog.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.syslog]]
+#   ## Specify an ip or hostname with port - eg., tcp://localhost:6514, tcp://10.0.0.1:6514
+#   ## Protocol, address and port to host the syslog receiver.
+#   ## If no host is specified, then localhost is used.
+#   ## If no port is specified, 6514 is used (RFC5425#section-4.1).
+  <% if_p('telegraf.agent.inputs.syslog.server') do | server | %>
+  server = "<%= server %>"
+  <% end %>
+<% end %>
+<% end %>
+
+<% if_p('telegraf.agent.inputs.nginx.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.nginx]]
+  <% if_p('telegraf.agent.inputs.nginx.urls') do | urls | %>
+  urls = "<%= urls %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.nginx.skip_ssl_verify') do | skip_ssl_verify | %>
+  skip_ssl_verify = "<%= skip_ssl_verify %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.nginx.response_timeout') do | response_timeout | %>
+  response_timeout = "<%= response_timeout %>"
+  <% end %>
+<% end %>
+<% end %>
+
+<% if_p('telegraf.agent.inputs.consul.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.consul]]
+  <% if_p('telegraf.agent.inputs.consul.address') do | address | %>
+  address = "<%= address %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.consul.scheme') do | scheme | %>
+  scheme = "<%= scheme %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.consul.username') do | username | %>
+  username = "<%= username %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.consul.password') do | password | %>
+  password = "<%= password %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.consul.tag_delimiter') do | tag_delimiter | %>
+  tag_delimiter = "<%= tag_delimiter %>"
+  <% end %>
+<% end %>
+<% end %>

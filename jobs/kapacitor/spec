@@ -1,0 +1,320 @@
+name: kapacitor
+
+templates:
+  bin/kapacitor_ctl.erb: bin/kapacitor_ctl
+  config/kapacitor.conf.erb: config/kapacitor.conf
+
+packages:
+- kapacitor
+
+provides:
+  - name: kapacitor
+    type: kapacitor
+    properties:
+      - kapacitor.http.bind-address
+      - kapacitor.http.https-enabled
+
+consumes:
+  - name: influxdb
+    type: influxdb
+    optional: true
+
+properties:
+
+  kapacitor.hostname:
+    description: "The hostname of this node."
+    default: localhost
+
+  kapacitor.data.dir: 
+    description: "Directory for storing a small amount of metadata about the server."
+    default: "/var/vcap/store/kapacitor"
+
+  # Useful if the configuration overrides cause Kapacitor to fail startup.
+  # This option is intended as a safe guard and should not be needed in practice
+  kapacitor.skip-config-overrides:
+    description: If true, does not apply configuration overrides during startup."
+    default: false
+
+  # Default retention-policy, if a write is made to Kapacitor and
+  # it does not have a retention policy associated with it,
+  # then the retention policy will be set to this value
+  kapacitor.default-retention-policy:
+    description: "Set default retention-policy for writes to kapacitor"
+    default: ""
+
+  kapacitor.http.bind-address:
+    description: "HTTP bind-adress"
+    default: ":9092"
+
+  kapacitor.http.auth-enabled:
+    description: "If true, HTTP authentication will be enabled"
+    default: "false"
+
+  kapacitor.http.log-enabled:
+    description: "Defines if log for HTTP is enabled"
+    default: "true"
+
+  kapacitor.http.write-tracing:
+    description: "Configures if HTTP write tracing is enabled"
+    default: "false"
+
+  kapacitor.http.pprof-enabled:
+    description: "Configures if HTTP pprof is enabled"
+    default: "false"
+
+  kapacitor.http.https-enabled:
+    description: "Enables HTTPS"
+    default: "false"
+
+  kapacitor.http.shutdown-timeout:
+    description: "Configures timeout for HTTP shutdown"
+    default: "10s"
+
+  kapacitor.http.shared-secret:
+    description: "Configures HTTP shared secret"
+    default: ""
+
+  kapacitor.replay.dir:
+    description: "Replay directory"
+    default: "/var/vcap/store/kapacitor/replay"
+
+  kapacitor.storage.boltdb:
+    description: "Path to boltdb"
+    default: "/var/vcap/store/kapacitor/kapacitor.db"
+
+  kapacitor.influxdb.urls:
+    description: "URLs to available influxdbs, e.g. ['http://localhost:8086']"
+
+  kapacitor.influxdb.default:
+    description: "Use InfluxDB as default backend"
+    default: true
+
+  kapacitor.influxdb.username:
+    description: "Username to connect to influxdb database"
+
+  kapacitor.infuxdb.password:
+    description: "Password to connect to influxdb database"
+
+  kapacitor.influxdb.insecure-skip-verify:
+    description: "Do not verify the TLS/SSL certificate. This is insecure."
+    default: false
+
+  kapacitor.influxdb.timeout:
+    description: "InfluxDB timeout"
+    default: "0s"
+
+  kapacitor.influxdb.disable-subscriptions:
+    description: "Turn off all subscriptions"
+    default: false
+
+  kapacitor.influxdb.subscription-protocol:
+    description: "Which protocol to use for subscriptions one of 'udp', 'http', or 'https'."
+    default: "http"
+
+  # Useful if the InfluxDB cluster is in a separate network and
+  # needs special config to connect back to this Kapacitor instance.
+  # Defaults to `hostname` if empty.
+  kapacitor.influxdb.kapacitor-hostname:
+    description: "Override the global hostname option for this InfluxDB cluster."
+    default: ""
+
+  # Useful if the InfluxDB cluster is in a separate network and
+  # needs special config to connect back to this Kapacitor instance.
+  # Defaults to the port from `[http] bind-address` if 0.
+  kapacitor.influxdb.http-port:
+    description: "Override the global http port option for this InfluxDB cluster."
+    default: 0
+
+  # For example if a UDP listener is using port 1234
+  # and `udp-bind = "hostname_or_ip"`,
+  # then the UDP port will be bound to `hostname_or_ip:1234`
+  # The default empty value will bind to all addresses.
+  kapacitor.influxdb.udp-bind:
+    description: "Host part of a bind address for UDP listeners."
+    default: ""
+
+  # Subscriptions use the UDP network protocol.
+  # The following options of for the created UDP listeners for each subscription.
+  kapacitor.influxdb.udp-buffer:
+    description: "Number of packets to buffer when reading packets off the socket."
+    default: 1000
+
+  kapacitor.influxdb.udp-read-buffer:
+    description: "The size in bytes of the OS read buffer for the UDP socket. A value of 0 indicates use the OS default."
+    default: 0
+
+  kapacitor.influxdb.startup-timeout:
+    description: "Maximum time to try and connect to InfluxDB during startup"
+    default: "5m0s"
+
+  # Useful if you want to subscribe to new created databases
+  # without restart Kapacitor
+  kapacitor.influxdb.subscriptions-sync-interval:
+    description: "Subscriptions resync time interval"
+    default: "1m0s"
+
+  # If empty will subscribe to all, minus the list in
+  # influxdb.excluded-subscriptions
+  #
+  # Format
+  # db_name = <list of retention policies>
+  #
+  # Example:
+  # my_database = [ "default", "longterm" ]
+  kapacitor.influxdb.subscriptions:
+    description: "Set of databases and retention policies to subscribe to."
+
+  # If influxdb.subscriptions is empty it will subscribe to all
+  # except databases listed here.
+  #
+  # Format
+  # db_name = <list of retention policies>
+  #
+  # Example:
+  # my_database = [ "default", "longterm" ]
+  kapacitor.influxdb.excluded-subscriptions:
+    description: "Set of databases and retention policies to exclude from the subscriptions."
+
+  # Logging level can be one of:
+  # DEBUG, INFO, ERROR
+  # HTTP logging can be disabled in the [http] config section.
+  kapacitor.logging.level:
+    default: "INFO"
+
+  kapacitor.logging.file:
+    description: "Can be a path to a file or 'STDOUT', 'STDERR'."
+    default: "/var/vcap/sys/log/kapacitor/kapacitor.log"
+
+  # Enable/Disable the service for overridding configuration via the HTTP API.
+  kapacitor.config-override.enabled:
+    default: true
+
+  # Send usage statistics
+  # every 12 hours to Enterprise.
+  kapacitor.reporting.enabled:
+    default: true
+
+  kapacitor.reporting.url:
+    default: "https://usage.influxdata.com"
+
+  # Emit internal statistics about Kapacitor.
+  # To consume these stats create a stream task
+  # that selects data from the configured database
+  # and retention policy.
+  #
+  # Example:
+  #  stream|from().database('_kapacitor').retentionPolicy('autogen')...
+  kapacitor.stats.enabled:
+    default: true
+
+  kapacitor.stats.stats-interval:
+    default: "10s"
+
+  kapacitor.stats.database:
+    default: "_kapacitor"
+
+  kapacitor.stats.database:
+    default: "autogen"
+
+  # Configure an SMTP email server
+  # Will use TLS and authentication if possible
+  # Only necessary for sending emails from alerts.
+  kapacitor.smtp.enabled:
+    default: false
+
+  kapacitor.smtp.host:
+    default: "localhost"
+
+  kapacitor.smtp.port:
+    default: 25
+
+  kapacitor.smtp.username:
+    default: ""
+
+  kapacitor.smtp.password:
+    default: ""
+
+  # From address for outgoing mail
+  kapacitor.smtp.from:
+    default: ""
+ 
+  # Close idle connections after timeout
+  kapacitor.smtp.idle-timeout:
+    default: "30s"
+
+  # Skip TLS certificate verify when connecting to SMTP server
+  kapacitor.smtp.no-verify:
+    default: false
+
+  # If true the all alerts will be sent via Email
+  # without explicitly marking them in the TICKscript.
+  kapacitor.smtp.global:
+    default: false
+
+  # Only applies if global is true.
+  # Sets all alerts in state-changes-only mode,
+  # meaning alerts will only be sent if the alert state changes.
+  kapacitor.smtp.state-changes-only:
+    default: false
+
+  # Slack client configuration
+  kapacitor.slack.enabled:
+    default: false
+
+  # workspace ID
+  # This can be any string to identify this particular slack configuration
+  # A logical choice is the name of the slack workspace, e.g. <workspace>.slack.com
+  kapacitor.slack.workspace:
+    default: ""
+
+  # The Slack webhook URL, can be obtained by adding
+  # an Incoming Webhook integration.
+  # Visit https://slack.com/services/new/incoming-webhook
+  # to add new webhook for Kapacitor.
+  kapacitor.slack.url:
+    default: "localhost"
+
+  kapacitor.slack.channel:
+    description: "Default channel for messages"
+
+  # If true all the alerts will be sent to Slack
+  # without explicitly marking them in the TICKscript.
+  kapacitor.slack.global:
+    default: false
+
+  # Only applies if global is true.
+  # Sets all alerts in state-changes-only mode,
+  # meaning alerts will only be sent if the alert state changes.
+  kapacitor.slack.state-changes-only:
+    default: false
+
+  # Configure OpsGenie with your API key
+  kapacitor.opsgenie.enabled:
+    default: false
+
+  # Your OpsGenie API Key.
+  kapacitor.opsgenie.api-key:
+    default: "localhost"
+
+  kapacitor.opsgenie.url:
+    default: "localhost"
+
+  # Default OpsGenie teams, can be overridden per alert.
+  # teams = ["team1", "team2"]
+  # Default OpsGenie recipients, can be overridden per alert.
+  # recipients = ["recipient1", "recipient2"]
+  # The OpsGenie API URL should not need to be changed.
+  kapacitor.opsgenie.url:
+    default: "https://api.opsgenie.com/v1/json/alert"
+
+  # The OpsGenie Recovery URL, you can change this
+  # based on which behavior you want a recovery to
+  # trigger (Add Notes, Close Alert, etc.)
+  kapacitor.opsgenie.recovery-url:
+    default: "https://api.opsgenie.com/v1/json/alert/note"
+
+  # If true then all alerts will be sent to OpsGenie
+  # without explicitly marking them in the TICKscript.
+  # The team and recipients can still be overridden.
+  kapacitor.opsgenie.global:
+    default: false

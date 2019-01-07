@@ -1,0 +1,336 @@
+<% if_p('kapacitor.hostname') do | kapacitor_hostname | %>
+# The hostname of this node.
+# Must be resolvable by any configured InfluxDB hosts.
+hostname = "<%= kapacitor_hostname %>"
+<% end %>
+
+<% if_p('kapacitor.data.dir') do | kapacitor_data_dir | %>
+# Directory for storing a small amount of metadata about the server.
+data_dir = "<%= kapacitor_data_dir %>"
+<% end %>
+
+<% if_p('kapacitor.skip-config-overrides') do | kapacitor_skip_config_overrides | %>
+# Do not apply configuration overrides during startup.
+# Useful if the configuration overrides cause Kapacitor to fail startup.
+# This option is intended as a safe guard and should not be needed in practice.
+skip-config-overrides = <%= kapacitor_skip_config_overrides %>
+<% end %>
+
+<% if_p('kapacitor.default-retention-policy') do | kapacitor_default_retention_policy | %>
+# Default retention-policy, if a write is made to Kapacitor and
+# it does not have a retention policy associated with it,
+# then the retention policy will be set to this value
+default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
+<% end %>
+
+[http]
+ # HTTP API Server for Kapacitor
+ # This server is always on,
+ # it serves both as a write endpoint
+ # and as the API endpoint for all other
+ # Kapacitor calls.
+<% if_p('kapacitor.http.bind-address') do | kapacitor_http_bind_address | %>
+  bind-address = "<%= kapacitor_http_bind_address %>"
+<% end %>
+<% if_p('kapacitor.http.auth-enabled') do | kapacitor_http_auth_enabled | %>
+  auth-enabled = <%= kapacitor_http_auth_enabled %>
+<% end %>
+<% if_p('kapacitor.http.log-enabled') do | kapacitor_http_log_enabled | %>
+  log-enabled = <%= kapacitor_http_log_enabled %>
+<% end %>
+<% if_p('kapacitor.http.write-tracing') do | kapacitor_http_write_tracing | %>
+  write-tracing = <%= kapacitor_http_write_tracing %>
+<% end %>
+<% if_p('kapacitor.http.pprof-enabled') do | kapacitor_http_pprof_enabled | %>
+  pprof-enabled = <%= kapacitor_http_pprof_enabled %>
+<% end %>
+<% if_p('kapacitor.http.https-enabled') do | kapacitor_http_https_enabled | %>
+  https-enabled = <%= kapacitor_http_https_enabled %>
+<% end %>
+  # TODO
+  https-certificate = "/var/vcap/jobs/kapacitor/config/kapacitor.pem"
+<% if_p('kapacitor.http.shutdown-timeout') do | kapacitor_http_shutdown_timeout | %>
+  shutdown-timeout = "<%= kapacitor_http_shutdown_timeout %>"
+<% end %>
+<% if_p('kapacitor.http.shared-secret') do | kapacitor_http_shared_secret | %>
+  shared-secret = "<%= kapacitor_http_shared_secret %>"
+<% end %>
+
+[replay]
+<% if_p('kapacitor.replay.dir') do | kapacitor_replay_dir | %>
+  dir = "<%= kapacitor_replay_dir %>"
+<% end %>
+
+[storage]
+<% if_p('kapacitor.storage.boltdb') do | kapacitor_storage_boltdb | %>
+  boltdb = "<%= kapacitor_storage_boltdb %>"
+<% end %>
+
+[[influxdb]]
+<% if_p('kapacitor.influxdb.enabled') do | kapacitor_influxdb_enabled | %>
+  enabled = "<%= kapacitor_influxdb_enabled %>"
+<% end %>
+<% if_p('kapacitor.influxdb.name') do | kapacitor_influxdb_name | %>
+  name = "<%= kapacitor_influxdb_name %>"
+<% end %>
+<% if_p('kapacitor.influxdb.default') do | kapacitor_influxdb_default | %>
+  default  = <%= kapacitor_influxdb_default %>
+<% end %>
+<%
+  urls = p('kapacitor.influxdb.urls', nil)
+  unless urls 
+    if_link('influxdb') do |influxdb|
+      scheme = "http"
+      scheme = "https" if influxdb.p('influxdb.http.https-enabled')
+      urls = influxdb.instances.map{ |instance| "#{scheme}://#{instance.address}#{influxdb.p('influxdb.http.bind-address')}" }
+    end
+  end
+  urls
+%>
+  urls = <%= urls %>
+<% if_p('kapacitor.influxdb.username') do | kapacitor_influxdb_username | %>
+  username = "<%= kapacitor_influxdb_username %>"
+<% end %>
+<% if_p('kapacitor.influxdb.password') do | kapacitor_influxdb_password | %>
+  password = "<%= kapacitor_influxdb_password %>"
+<% end %>
+# TODO
+#  ssl-ca = ""
+#  ssl-cert = ""
+#  ssl-key = ""
+<% if_p('kapacitor.influxdb.insecure-skip-verify') do | kapacitor_influxdb_insecure_skip_verify | %>
+  insecure-skip-verify = <%= kapacitor_influxdb_insecure_skip_verify %>
+<% end %>
+<% if_p('kapacitor.influxdb.timeout') do | kapacitor_influxdb_timeout | %>
+  timeout = "<%= kapacitor_influxdb_timeout %>"
+<% end %>
+<% if_p('kapacitor.influxdb.disable-subscriptions') do | kapacitor_influxdb_disable_subscriptions | %>
+  disable-subscriptions = <%= kapacitor_influxdb_disable_subscriptions %>
+<% end %>
+<% if_p('kapacitor.influxdb.subscription-protocol') do | kapacitor_influxdb_subscription_protocol | %>
+  subscription-protocol = "<%= kapacitor_influxdb_subscription_protocol %>"
+<% end %>
+<% if_p('kapacitor.influxdb.kapacitor-hostname') do | kapacitor_influxdb_kapacitor_hostname | %>
+  kapacitor-hostname = "<%= kapacitor_influxdb_kapacitor_hostname %>"
+<% end %>
+<% if_p('kapacitor.influxdb.http-port') do | kapacitor_influxdb_http_port | %>
+  http-port = <%= kapacitor_influxdb_http_port %>
+<% end %>
+<% if_p('kapacitor.influxdb.udp-bind') do | kapacitor_influxdb_udp_bind | %>
+  udp-bind = "<%= kapacitor_influxdb_udp_bind %>"
+<% end %>
+<% if_p('kapacitor.influxdb.udp-buffer') do | kapacitor_influxdb_udp_buffer | %>
+  udp-buffer = <%= kapacitor_influxdb_udp_buffer %>
+<% end %>
+<% if_p('kapacitor.influxdb.udp-read-buffer') do | kapacitor_influxdb_udp_read_buffer | %>
+  udp-read-buffer = <%= kapacitor_influxdb_udp_read_buffer %>
+<% end %>
+<% if_p('kapacitor.influxdb.startup-timeout') do | kapacitor_influxdb_startup_timeout | %>
+  startup-timeout = "<%= kapacitor_influxdb_startup_timeout %>"
+<% end %>
+<% if_p('kapacitor.influxdb.subscriptions-sync-interval') do | kapacitor_influxdb_subscriptions_sync_interval | %>
+  subscriptions-sync-interval = "<%= kapacitor_influxdb_subscriptions_sync_interval %>"
+<% end %>
+  [influxdb.subscriptions]
+  <% if_p('kapacitor.influxdb.subscriptions') do | kapacitor_influxdb_subscriptions | %>
+    subscriptions = "<%= kapacitor_influxdb_subscriptions %>"
+  <% end %>
+  [influxdb.excluded-subscriptions]
+  <% if_p('kapacitor.influxdb.excluded-subscriptions') do | kapacitor_influxdb_excluded_subscriptions | %>
+    excluded-subscriptions = "<%= kapacitor_influxdb_excluded_subscriptions %>"
+  <% end %>
+
+    _kapacitor = ["autogen"]
+
+[logging]
+<% if_p('kapacitor.logging.file') do | kapacitor_logging_file | %>
+  file = "<%= kapacitor_logging_file %>"
+<% end %>
+<% if_p('kapacitor.logging.level') do | kapacitor_logging_level | %>
+  level = "<%= kapacitor_logging_level %>"
+<% end %>
+
+[config-override]
+<% if_p('kapacitor.config-override.enabled') do | kapacitor_config_override_enabled | %>
+  enabled = <%= kapacitor_config_override_enabled %>
+<% end %>
+
+#[collectd]
+#  enabled = false
+#  bind-address = ":25826"
+#  database = "collectd"
+#  retention-policy = ""
+#  batch-size = 5000
+#  batch-pending = 10
+#  batch-timeout = "10s"
+#  read-buffer = 0
+#  typesdb = "/usr/share/collectd/types.db"
+#
+#[opentsdb]
+#  enabled = false
+#  bind-address = ":4242"
+#  database = "opentsdb"
+#  retention-policy = ""
+#  consistency-level = "one"
+#  tls-enabled = false
+#  certificate = "/etc/ssl/influxdb.pem"
+#  batch-size = 1000
+#  batch-pending = 5
+#  batch-timeout = "1s"
+#  log-point-errors = true
+#
+#[alerta]
+#  enabled = false
+#  url = ""
+#  token = ""
+#  environment = ""
+#  origin = ""
+#
+#[hipchat]
+#  enabled = false
+#  url = ""
+#  token = ""
+#  room = ""
+#  global = false
+#  state-changes-only = false
+#
+[opsgenie]
+<% if_p('kapacitor.opsgenie.enabled') do | kapacitor_opsgenie_enabled | %>
+  enabled = <%= kapacitor_opsgenie_enabled %>
+<% end %>
+  # identify one of the opsgenie configurations as the default
+  default = true
+<% if_p('kapacitor.opsgenie.api-key') do | kapacitor_opsgenie_api_key | %>
+  api-key = "<%= kapacitor_opsgenie_api_key %>"
+<% end %>
+<% if_p('kapacitor.opsgenie.url') do | kapacitor_opsgenie_url | %>
+  url = "<%= kapacitor_opsgenie_url %>"
+<% end %>
+<% if_p('kapacitor.opsgenie.recovery-url') do | kapacitor_opsgenie_recovery_url | %>
+  recovery-url = "<%= kapacitor_opsgenie_recovery_url %>"
+<% end %>
+<% if_p('kapacitor.opsgenie.global') do | kapacitor_opsgenie_global | %>
+  global = <%= kapacitor_opsgenie_global %>
+<% end %>
+#
+#[pagerduty]
+#  enabled = false
+#  url = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
+#  service-key = ""
+#  global = false
+#
+[smtp]
+<% if_p('kapacitor.smtp.enabled') do | kapacitor_smtp_enabled | %>
+  enabled = <%= kapacitor_smtp_enabled %>
+<% end %>
+<% if_p('kapacitor.smtp.host') do | kapacitor_smtp_host | %>
+  host = "<%= kapacitor_smtp_host %>"
+<% end %>
+<% if_p('kapacitor.smtp.port') do | kapacitor_smtp_port | %>
+  port = <%= kapacitor_smtp_port %>
+<% end %>
+<% if_p('kapacitor.smtp.username') do | kapacitor_smtp_username | %>
+  username = "<%= kapacitor_smtp_username %>"
+<% end %>
+<% if_p('kapacitor.smtp.password') do | kapacitor_smtp_password | %>
+  password = "<%= kapacitor_smtp_password %>"
+<% end %>
+<% if_p('kapacitor.smtp.from') do | kapacitor_smtp_from | %>
+  from = "<%= kapacitor_smtp_from %>"
+<% end %>
+<% if_p('kapacitor.smtp.idle-timeout') do | kapacitor_smtp_idle_timeout | %>
+  idle-timeout = "<%= kapacitor_smtp_idle_timeout %>"
+<% end %>
+<% if_p('kapacitor.smtp.no-verify') do | kapacitor_smtp_no_verify | %>
+  no-verify = <%= kapacitor_smtp_no_verify %>
+<% end %>
+<% if_p('kapacitor.smtp.global') do | kapacitor_smtp_global | %>
+  global = <%= kapacitor_smtp_global %>
+<% end %>
+<% if_p('kapacitor.smtp.state-changes-only') do | kapacitor_smtp_state_changes_only | %>
+  state-changes-only = <%= kapacitor_smtp_state_changes_only %>
+<% end %>
+#
+#[sensu]
+#  enabled = false
+#  addr = ""
+#  source = "Kapacitor"
+#
+# Slack client configuration
+#  Mutliple different clients may be configured by
+#  repeating [[slack]] sections.
+[slack]
+<% if_p('kapacitor.slack.enabled') do | kapacitor_slack_enabled | %>
+  enabled = <%= kapacitor_slack_enabled %>
+<% end %>
+  # identify one of the slack configurations as the default
+  default = true
+<% if_p('kapacitor.slack.workspace') do | kapacitor_slack_workspace | %>
+  workspace = "<%= kapacitor_slack_workspace %>"
+<% end %>
+<% if_p('kapacitor.slack.url') do | kapacitor_slack_url | %>
+  url = "<%= kapacitor_slack_url %>"
+<% end %>
+<% if_p('kapacitor.slack.channel') do | kapacitor_slack_channel | %>
+  channel = "<%= kapacitor_slack_channel %>"
+<% end %>
+<% if_p('kapacitor.slack.global') do | kapacitor_slack_global | %>
+  global = <%= kapacitor_slack_global %>
+<% end %>
+<% if_p('kapacitor.slack.state-changes-only') do | kapacitor_slack_state_changes_only | %>
+  state-changes-only = <%= kapacitor_slack_state_changes_only %>
+<% end %>
+#
+#[talk]
+#  enabled = false
+#  url = ""
+#  author_name = ""
+#
+#[telegram]
+#  enabled = false
+#  url = "https://api.telegram.org/bot"
+#  token = ""
+#  chat-id = ""
+#  parse-mode = ""
+#  disable-web-page-preview = false
+#  disable-notification = false
+#  global = false
+#  state-changes-only = false
+#
+#[victorops]
+#  enabled = false
+#  api-key = ""
+# routing-key = ""
+#  url = "https://alert.victorops.com/integrations/generic/20131114/alert"
+#  global = false
+#
+#[kubernetes]
+#  enabled = false
+#  in-cluster = false
+#  token = ""
+#  ca-path = ""
+#  namespace = ""
+
+<% if_p('kapacitor.reporting.enabled') do | kapacitor_reporting_enabled | %>
+[reporting]
+  enabled = <%= kapacitor_reporting_enabled %>
+<% end %>
+<% if_p('kapacitor.reporting.url') do | kapacitor_reporting_url | %>
+  url = "<%= kapacitor_reporting_url %>"
+<% end %>
+
+<% if_p('kapacitor.stats.enabled') do | kapacitor_stats_enabled | %>
+[stats]
+  enabled = <%= kapacitor_stats_enabled %>
+<% end %>
+<% if_p('kapacitor.stats.stats-interval') do | kapacitor_stats_stats_interval | %>
+  stats-interval = "<%= kapacitor_stats_stats_interval %>"
+<% end %>
+<% if_p('kapacitor.stats.database') do | kapacitor_stats_database | %>
+  database = "<%= kapacitor_stats_database %>"
+<% end %>
+<% if_p('kapacitor.stats.retention-policy') do | kapacitor_stats_retention_policy | %>
+  retention-policy = "<%= kapacitor_stats_retention_policy %>"
+<% end %>
+
+[udf]

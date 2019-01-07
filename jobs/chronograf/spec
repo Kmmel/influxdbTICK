@@ -1,0 +1,73 @@
+---
+name: chronograf
+
+templates:
+  bin/chronograf_ctl.erb: bin/chronograf_ctl
+
+packages:
+- chronograf
+
+consumes:
+  - name: influxdb
+    type: influxdb
+    optional: true
+  - name: kapacitor
+    type: kapacitor
+    optional: true
+
+properties:
+
+  chronograf.developer_mode:
+    description: "Run the chronograf service in developer mode."
+    default: false
+
+  chronograf.log_level:
+    description: "Set the logging level."
+    default: "info"
+
+  chronograf.disable_reporting:
+    description: "Disables reporting of usage statistics. Usage statistics reported once every 24 hours include: OS, arch, version, cluster_id, and uptime."
+    default: false
+
+  chronograf.host:
+    description: "The IP that the chronograf service listens on."
+
+  chronograf.port:
+    description: "The port that the chronograf service listens on for insecure connections."
+
+  chronograf.bolt_path:
+    description: "The file path to the BoltDB file."
+    default: "/var/vcap/store/chronograf/chronograf-v1.db"
+
+  chronograf.canned_path:
+    description: "The path to the directory of canned (precreated) dashboards files."
+    default: "/var/vcap/packages/chronograf/canned"
+
+  chronograf.resources_path:
+    description: "Path to directory of canned dashboards, sources, Kapacitor connections, and organizations."
+    default: "/var/vcap/packages/chronograf/resources"
+
+  chronograf.basepath:
+    description: "The URL path prefix under which all chronograf routes will be mounted."
+
+  chronograf.status_feed_url:
+    description: "URL of JSON feed to display as a news feed on the client Status page."
+
+  chronograf.influxdb.url:
+    description: "The location of your InfluxDB instance, including 'http://
+, IP address, and port, e.g. http://localhost:8086"
+
+  chronograf.influxdb.username:
+    description: "The [username] for your InfluxDB instance."
+
+  chronograf.influxdb.password:
+    description: "The [password] for your InfluxDB instance."
+
+  chronograf.kapacitor.url:
+    description: "The location of your Kapacitor instance, including 'http://', IP address, and port., e.g. http://localhost:9092"
+
+  chronograf.kapacitor.username:
+    description: "The username for your Kapacitor instance."
+
+  chronograf.kapacitor.password:
+    description: "The password for your Kapacitor instance."

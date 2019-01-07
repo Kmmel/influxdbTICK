@@ -1,0 +1,18 @@
+addons:
+- jobs:
+  - name: telegraf
+    release: influxdb
+    properties:
+      telegraf:
+        agent:
+          outputs:
+            influxdb:
+              urls: ((influxdb_url))
+  name: telegraf
+  exclude:
+    deployments:
+    - influxdb
+releases:
+- name: influxdb
+  version: 0+dev.108
+

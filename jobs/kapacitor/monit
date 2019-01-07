@@ -1,0 +1,7 @@
+# TODO: Add property + code to switch to bpm
+
+check process kapacitor
+  with pidfile /var/vcap/sys/run/kapacitor/kapacitor.pid
+  start program "/var/vcap/jobs/kapacitor/bin/kapacitor_ctl start"
+  stop program "/var/vcap/jobs/kapacitor/bin/kapacitor_ctl stop"
+  group vcap

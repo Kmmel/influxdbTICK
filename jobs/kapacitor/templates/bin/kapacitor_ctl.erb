@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+DATA_DIR=/var/vcap/data/kapacitor
+STORE_DIR=/var/vcap/store/kapacitor
+LOG_DIR=/var/vcap/sys/log/kapacitor
+RUN_DIR=/var/vcap/sys/run/kapacitor
+PIDFILE=$RUN_DIR/kapacitor.pid
+
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${STORE_DIR} ${DATA_DIR}
+
+source /var/vcap/packages/kapacitor/common/utils.sh
+exec 1>> ${LOG_DIR}/$(basename "$0").stdout.log
+exec 2>> ${LOG_DIR}/$(basename "$0").stderr.log
+
+export PATH=/var/vcap/packages/kapacitor/bin:${PATH}
+
+case $1 in
+  start)
+    pid_guard ${PIDFILE} "kapacitord"
+    echo $$ > $PIDFILE
+
+    exec kapacitord   \
+    -config /var/vcap/jobs/kapacitor/config/kapacitor.conf
+    ;;
+
+  stop)
+    kill_and_wait ${PIDFILE}
+    ;;
+
+  *)
+    echo "Usage: control {start|stop}" >&2
+    exit 1
+    ;;
+esac

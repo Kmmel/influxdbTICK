@@ -1,0 +1,76 @@
+---
+name: influxdb
+
+releases:
+- name: influxdb
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-xenial
+  version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  canary_watch_time: 5000-60000
+  update_watch_time: 5000-60000
+
+instance_groups:
+- name: influxdb
+  azs: [z1]
+  instances: 1
+  jobs:
+  - name: influxdb
+    release: influxdb
+    properties:
+      influxdb:
+        graphite:
+          enabled: true
+          bind-address: ':9109'
+          database: graphite
+          # "*.app env.service.resource.measurement"
+          templates: 
+            - "bosh_name.bosh_deployment.bosh_job_name.bosh_job_id.*.measurement environment=bosh-lite"
+  - name: telegraf
+    release: influxdb
+    properties:
+      telegraf:
+        agent:
+          inputs:
+            influxdb:
+              enabled: true
+            syslog:
+              enabled: true
+              server: "udp://localhost:6514"
+  vm_type: default
+  stemcell: default
+  persistent_disk: 10240
+  networks:
+  - name: default
+- name: kapacitor
+  azs: [z1]
+  instances: 1
+  jobs:
+  - name: kapacitor
+    release: influxdb
+  - name: telegraf
+    release: influxdb
+  vm_type: default
+  stemcell: default
+  persistent_disk: 10240
+  networks:
+  - name: default
+- name: chronograf
+  azs: [z1]
+  instances: 1
+  jobs:
+  - name: chronograf
+    release: influxdb
+  - name: telegraf
+    release: influxdb
+  vm_type: default
+  stemcell: default
+  persistent_disk: 10240
+  networks:
+  - name: default

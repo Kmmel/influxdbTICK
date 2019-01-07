@@ -1,0 +1,111 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+STORE_DIR=/var/vcap/store/chronograf
+LOG_DIR=/var/vcap/sys/log/chronograf
+RUN_DIR=/var/vcap/sys/run/chronograf
+PIDFILE=$RUN_DIR/chronograf.pid
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${STORE_DIR}
+
+
+source /var/vcap/packages/chronograf/common/utils.sh
+exec 1>> ${LOG_DIR}/$(basename "$0").stdout.log
+exec 2>> ${LOG_DIR}/$(basename "$0").stderr.log
+
+export PATH=/var/vcap/packages/chronograf/bin:${PATH}
+
+case $1 in
+  start)
+    pid_guard ${PIDFILE} "chronograf"
+    echo $$ > $PIDFILE
+
+    exec chronograf   \
+       <% if_p('chronograf.developer_mode') do |chronograf_developer_mode| %> \
+         <% if chronograf_developer_mode %> \
+       --develop \
+         <% end %> \
+       <% end %> \
+       <% if_p('chronograf.log_level') do |chronograf_log_level| %> \
+       --log-level="<%= chronograf_log_level %>" \
+       <% end %> \
+       <% if_p('chronograf.disable_reporting') do |chronograf_disable_reporting| %> \
+         <% if chronograf_disable_reporting %> \
+       --reporting-disabled \
+         <% end %> \
+       <% end %> \
+       <% if_p('chronograf.host') do |chronograf_host| %> \
+       --host="<%= chronograf_host %>" \
+       <% end %> \
+       <% if_p('chronograf.port') do |chronograf_port| %> \
+       --port="<%= chronograf_port %>" \
+       <% end %> \
+       <% if_p('chronograf.bolt_path') do |chronograf_bolt_path| %> \
+       --bolt-path="<%= chronograf_bolt_path %>" \
+       <% end %> \
+       <% if_p('chronograf.canned_path') do |chronograf_canned_path| %> \
+       --canned-path="<%= chronograf_canned_path %>" \
+       <% end %> \
+       <% if_p('chronograf.resources_path') do |chronograf_resources_path| %> \
+       --resources-path="<%= chronograf_resources_path %>" \
+       <% end %> \
+       <% if_p('chronograf.basepath') do |chronograf_basepath| %> \
+       --basepath="<%= chronograf_basepath %>" \
+       <% end %> \
+       <% if_p('chronograf.status_feed_url') do |chronograf_status_feed_url| %> \
+       --status-feed-url="<%= chronograf_status_feed_url %>" \
+       <% end %> \
+       <%
+        influxdb_url = nil
+        if_p('chronograf.influxdb.url') do | url |
+          influxdb_url = "#{url}"
+        end
+        unless influxdb_url
+          if_link('influxdb') do |influxdb|
+            scheme = "http"
+            scheme = "https" if influxdb.p('influxdb.http.https-enabled')
+          influxdb_url = "#{scheme}://#{influxdb.instances.first.address}#{influxdb.p('influxdb.http.bind-address')}"
+          end
+        end
+        influxdb_url
+       %> \
+       --influxdb-url="<%= influxdb_url %>" \
+       <% if_p('chronograf.influxdb.username') do |chronograf_influxdb_username| %> \
+       --influxdb-username="<%= chronograf_influxdb_username %>" \
+       <% end %> \
+       <% if_p('chronograf.influxdb.password') do |chronograf_influxdb_password| %> \
+       --influxdb-password="<%= chronograf_influxdb_password %>" \
+       <% end %> \
+       <%
+        kapacitor_url = nil
+        if_p('chronograf.kapacitor.url') do | url |
+          kapacitor_url = "#{url}"
+        end
+        unless kapacitor_url
+          if_link('kapacitor') do |kapacitor|
+            scheme = "http"
+            scheme = "https" if kapacitor.p('kapacitor.http.https-enabled')
+          kapacitor_url = "#{scheme}://#{kapacitor.instances.first.address}#{kapacitor.p('kapacitor.http.bind-address')}"
+          end
+        end
+        kapacitor_url
+       %> \
+       --kapacitor-url="<%= kapacitor_url %>" \
+       <% if_p('chronograf.kapacitor.username') do |chronograf_kapacitor_username| %> \
+       --kapacitor-username="<%= chronograf_kapacitor_username %>" \
+       <% end %> \
+       <% if_p('chronograf.kapacitor.password') do |chronograf_kapacitor_password| %> \
+       --kapacitor-password="<%= chronograf_kapacitor_password %>" \
+       <% end %> \
+    ;;
+
+  stop)
+    kill_and_wait ${PIDFILE}
+    ;;
+
+  *)
+    echo "Usage: control {start|stop}" >&2
+    exit 1
+    ;;
+esac
