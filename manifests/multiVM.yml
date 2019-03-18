@@ -23,26 +23,14 @@ instance_groups:
   jobs:
   - name: influxdb
     release: influxdb
-    properties:
-      influxdb:
-        graphite:
-          enabled: true
-          bind-address: ':9109'
-          database: graphite
-          # "*.app env.service.resource.measurement"
-          templates: 
-            - "bosh_name.bosh_deployment.bosh_job_name.bosh_job_id.*.measurement environment=bosh-lite"
   - name: telegraf
     release: influxdb
     properties:
       telegraf:
         agent:
-          inputs:
+          outputs:
             influxdb:
               enabled: true
-            syslog:
-              enabled: true
-              server: "udp://localhost:6514"
   vm_type: default
   stemcell: default
   persistent_disk: 10240
