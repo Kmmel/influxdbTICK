@@ -1,6 +1,8 @@
 ---
 blobstore:
-  provider: local
+  provider: s3
   options:
-    blobstore_path: /blobs/
+    bucket_name: tickstack
+    region: eu-central-1
+    host: s3-eu-central-1.amazonaws.com
 name: influxdb
