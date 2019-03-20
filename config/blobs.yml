@@ -10,7 +10,7 @@ kapacitor/kapacitor-1.5.2_linux_amd64.tar.gz:
   size: 32565369
   object_id: 4d8c06e4-135f-485c-6948-dab6d1030c58
   sha: 9f1bcc38938c69d9201139c20f491bdc55778691
-telegraf/telegraf-1.10.0_linux_amd64.tar.gz:
-  size: 18068748
-  object_id: 759d46ed-ba84-4959-5424-a088a1388658
-  sha: 6cf20541e1befa64ac943ac29b93ed9df08757a5
+telegraf/telegraf-1.10.1_linux_amd64.tar.gz:
+  size: 18059860
+  object_id: fa6868c8-f031-421e-7c93-0b41bd1fb2c5
+  sha: c2ae55da7b089edcfa5154fca014ea0b4b7d0c47
