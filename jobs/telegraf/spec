@@ -169,3 +169,29 @@ properties:
   telegraf.agent.outputs.datadog.timeout:
     description: "Connection timeout."
     default: "5s"
+
+  telegraf.agent.outputs.cloudwatch.enabled:
+    description: "Enable configuration for cloudwatch output"
+    default: false
+
+  telegraf.agent.outputs.region:
+    description: "Amazon Region"
+    default: "us-east-1"
+
+  telegraf.agent.outputs.cloudwatch.access_key:
+    description: "Amazon Credentials - Access Key"
+
+  telegraf.agent.outputs.cloudwatch.secret_key:
+    description: "Amazon Credentials - Secret Key"
+
+  telegraf.agent.outputs.cloudwatch.token:
+    description: "Amazon Credentials - Token"
+
+  telegraf.agent.outputs.cloudwatch.role_arn:
+    description: "Amazon Credentials - Role-ARN"
+
+  telegraf.agent.outputs.cloudwatch.profile:
+    description: "Amazon Credentials - Profile"
+
+  telegraf.agent.outputs.cloudwatch.shared_credential_file:
+    description: "Amazon Credentials - Shared_Credential_File"

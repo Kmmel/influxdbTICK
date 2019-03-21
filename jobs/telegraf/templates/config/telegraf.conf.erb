@@ -90,6 +90,32 @@
   <% end %>
 <% end %>
 <% end %>
+<% if_p('telegraf.agent.outputs.cloudwatch.enabled') do | enabled | %>
+<% if enabled %>
+[[outputs.cloudwatch]]
+  <% if_p('telegraf.agent.outputs.cloudwatch.region') do | region | %>
+  region = "<%= region %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.access_key') do | access_key | %>
+  access_key = "<%= access_key %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.secret_key') do | secret_key | %>
+  secret_key = "<%= secret_key %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.token') do | token | %>
+  token = "<%= token %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.role_arn') do | role_arn | %>
+  role_arn = "<%= role_arn %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.profile') do | profile | %>
+  profile = "<%= profile %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.cloudwatch.shared_credential_file') do | shared_credential_file | %>
+  shared_credential_file = "<%= shared_credential_file %>"
+  <% end %>
+<% end %>
+<% end %>
 <% if_p('telegraf.agent.inputs.vm_stats.enabled') do | enabled | %>
 <% if enabled %>
 [[inputs.cpu]]
