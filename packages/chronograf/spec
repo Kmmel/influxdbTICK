@@ -4,4 +4,4 @@ dependencies: []
 
 files:
   - common/utils.sh
-  - chronograf/chronograf-1.7.8_linux_amd64.tar.gz
+  - chronograf/chronograf-1.7.9_linux_amd64.tar.gz
