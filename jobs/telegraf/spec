@@ -154,3 +154,18 @@ properties:
   telegraf.agent.outputs.influxdb.timeout:
     description: "Timeout for HTTP messages."
     default: "5s"
+
+  telegraf.agent.outputs.datadog.enabled:
+    description: "Enable configuration for datadog output"
+    default: false
+
+  telegraf.agent.outputs.datadog.apikey:
+    description: "Datadog API key"
+
+  telegraf.agent.outputs.datadog.url:
+    description: "The base endpoint URL can optionally be specified but it defaults to"
+    default: "https://app.datadoghq.com/api/v1/series"
+
+  telegraf.agent.outputs.datadog.timeout:
+    description: "Connection timeout."
+    default: "5s"

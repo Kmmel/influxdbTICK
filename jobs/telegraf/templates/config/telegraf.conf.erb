@@ -76,6 +76,20 @@
   <% end %>
 <% end %>
 <% end %>
+<% if_p('telegraf.agent.outputs.datadog.enabled') do | enabled | %>
+<% if enabled %>
+[[outputs.datadog]]
+  <% if_p('telegraf.agent.outputs.datadog.apikey') do | apikey | %>
+  apikey = "<%= apikey %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.datadog.url') do | url | %>
+  url = "<%= url %>"
+  <% end %>
+  <% if_p('telegraf.agent.outputs.datadog.timeout') do | timeout | %>
+  timeout = "<%= timeout %>"
+  <% end %>
+<% end %>
+<% end %>
 <% if_p('telegraf.agent.inputs.vm_stats.enabled') do | enabled | %>
 <% if enabled %>
 [[inputs.cpu]]
