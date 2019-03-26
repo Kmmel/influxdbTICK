@@ -1,0 +1,39 @@
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/enabled
+  value: true
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/host
+  value: ((kapacitor_smtp_host))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/port
+  value: ((kapacitor_smtp_port))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/username
+  value: ((kapacitor_smtp_username))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/password
+  value: ((kapacitor_smtp_password))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/from
+  value: ((kapacitor_smtp_from))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/idle-timeout
+  value: ((kapacitor_smtp_idle_timeout))
+ 
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/no-verify
+  value: ((kapacitor_smtp_no_verify))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/global
+  value: ((kapacitor_smtp_global))
+
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/smtp/state-changes-only
+  value: ((kapacitor_smtp_state_changes_only))

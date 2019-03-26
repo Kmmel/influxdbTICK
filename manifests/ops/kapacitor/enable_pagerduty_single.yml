@@ -1,0 +1,12 @@
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/pagerduty/enabled
+  value: ((kapacitor_pagerduty_enabled))
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/pagerduty/global
+  value: ((kapacitor_pagerduty_global))
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/pagerduty/service-key
+  value: ((kapacitor_pagerduty_service_key))
+- type: replace
+  path: /instance_groups/name=influxdb/jobs/name=kapacitor/properties/kapacitor/pagerduty/url
+  value: ((kapacitor_pagerduty_url))

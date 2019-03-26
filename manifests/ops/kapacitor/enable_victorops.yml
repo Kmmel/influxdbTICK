@@ -1,0 +1,15 @@
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/victorops/api-key
+  value: ((kapacitor_victorops_api_key))
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/victorops/enabled
+  value: ((kapacitor_victorops_enabled))
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/victorops/global
+  value: ((kapacitor_victorops_global))
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/victorops/json
+  value: ((kapacitor_victorops_json))
+- type: replace
+  path: /instance_groups/name=kapacitor/jobs/name=kapacitor/properties/kapacitor/victorops/routing-key
+  value: ((kapacitor_victorops_routing_key))

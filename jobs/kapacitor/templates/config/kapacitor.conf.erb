@@ -212,13 +212,19 @@ default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
 <% if_p('kapacitor.opsgenie.global') do | kapacitor_opsgenie_global | %>
   global = <%= kapacitor_opsgenie_global %>
 <% end %>
-#
-#[pagerduty]
-#  enabled = false
-#  url = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
-#  service-key = ""
-#  global = false
-#
+[pagerduty]
+<% if_p('kapacitor.pagerduty.enabled') do | kapacitor_pagerduty_enabled | %>
+  enabled = <%= kapacitor_pagerduty_enabled %>
+<% end %>
+<% if_p('kapacitor.pagerduty.service-key') do | kapacitor_pagerduty_service_key | %>
+  service-key = "<%= kapacitor_pagerduty_service_key %>"
+<% end %>
+<% if_p('kapacitor.pagerduty.url') do | kapacitor_pagerduty_url | %>
+  url = "<%= kapacitor_pagerduty_url %>"
+<% end %>
+<% if_p('kapacitor.pagerduty.global') do | kapacitor_pagerduty_global | %>
+  global = <%= kapacitor_pagerduty_global %>
+<% end %>
 [smtp]
 <% if_p('kapacitor.smtp.enabled') do | kapacitor_smtp_enabled | %>
   enabled = <%= kapacitor_smtp_enabled %>
@@ -285,25 +291,44 @@ default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
 #  enabled = false
 #  url = ""
 #  author_name = ""
-#
-#[telegram]
-#  enabled = false
-#  url = "https://api.telegram.org/bot"
-#  token = ""
-#  chat-id = ""
-#  parse-mode = ""
-#  disable-web-page-preview = false
-#  disable-notification = false
-#  global = false
-#  state-changes-only = false
-#
-#[victorops]
-#  enabled = false
-#  api-key = ""
-# routing-key = ""
-#  url = "https://alert.victorops.com/integrations/generic/20131114/alert"
-#  global = false
-#
+[telegram]
+<% if_p('kapacitor.telegram.enabled') do | kapacitor_telegram_enabled | %>
+  enabled = <%= kapacitor_telegram_enabled %>
+<% end %>
+<% if_p('kapacitor.telegram.url') do | kapacitor_telegram_url | %>
+  url = "<%= kapacitor_telegram_url %>"
+<% end %>
+<% if_p('kapacitor.telegram.chat-id') do | kapacitor_telegram_chat_id | %>
+  chat-id = "<%= kapacitor_telegram_chat_id %>"
+<% end %>
+<% if_p('kapacitor.telegram.parse-mode') do | kapacitor_telegram_parse_mode | %>
+  parse-mode = "<%= kapacitor_telegram_parse_mode %>"
+<% end %>
+<% if_p('kapacitor.telegram.disable-notification') do | kapacitor_telegram_disable_notification | %>
+  disable-notification = <%= kapacitor_telegram_disable_notification %>
+<% end %>
+<% if_p('kapacitor.telegram.global') do | kapacitor_telegram_global | %>
+  global = <%= kapacitor_telegram_global %>
+<% end %>
+<% if_p('kapacitor.telegram.state-changes-only') do | kapacitor_telegram_state_changes_only | %>
+  state-changes-only = <%= kapacitor_telegram_state_changes_only %>
+<% end %>
+[victorops]
+<% if_p('kapacitor.victorops.enabled') do | kapacitor_victorops_enabled | %>
+  enabled = <%= kapacitor_victorops_enabled %>
+<% end %>
+<% if_p('kapacitor.victorops.api-key') do | kapacitor_victorops_api_key | %>
+  api-key = "<%= kapacitor_victorops_api_key %>"
+<% end %>
+<% if_p('kapacitor.victorops.routing-api') do | kapacitor_victorops_routing_api | %>
+  routing-api = "<%= kapacitor_victorops_routing_api %>"
+<% end %>
+<% if_p('kapacitor.victorops.global') do | kapacitor_victorops_global | %>
+  global = <%= kapacitor_victorops_global %>
+<% end %>
+<% if_p('kapacitor.victorops.json') do | kapacitor_victorops_json | %>
+  json = <%= kapacitor_victorops_json %>
+<% end %>
 #[kubernetes]
 #  enabled = false
 #  in-cluster = false
@@ -311,16 +336,16 @@ default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
 #  ca-path = ""
 #  namespace = ""
 
-<% if_p('kapacitor.reporting.enabled') do | kapacitor_reporting_enabled | %>
 [reporting]
+<% if_p('kapacitor.reporting.enabled') do | kapacitor_reporting_enabled | %>
   enabled = <%= kapacitor_reporting_enabled %>
 <% end %>
 <% if_p('kapacitor.reporting.url') do | kapacitor_reporting_url | %>
   url = "<%= kapacitor_reporting_url %>"
 <% end %>
 
-<% if_p('kapacitor.stats.enabled') do | kapacitor_stats_enabled | %>
 [stats]
+<% if_p('kapacitor.stats.enabled') do | kapacitor_stats_enabled | %>
   enabled = <%= kapacitor_stats_enabled %>
 <% end %>
 <% if_p('kapacitor.stats.stats-interval') do | kapacitor_stats_stats_interval | %>

@@ -318,3 +318,74 @@ properties:
   # The team and recipients can still be overridden.
   kapacitor.opsgenie.global:
     default: false
+
+  kapacitor.victorops.enabled:
+    description: "Configure VictorOps with your API key and default routing key."
+    default: false
+
+  kapacitor.victorops.api-key:
+    description: "Your VictorOps API Key."
+    default: ""
+
+  kapacitor.victorops.routing-key:
+    description: "The VictorOps API URL should not need to be changed."
+    default: ""
+
+  kapacitor.victorops.global:
+    description: "If true the all alerts will be sent to VictorOps, without explicitly marking them in the TICKscript. The routing key can still be overridden."
+    default: false
+
+  kapacitor.victorops.json:
+    description: "Use JSON for the 'data' field. New installations will want to set this to true as it makes the data that triggered the alert available within VictorOps. The default is 'false' for backwards compatibility reasons."
+    default: false
+
+  kapacitor.pagerduty.enabled:
+    description: "Configure PagerDuty."
+    default: false
+
+  kapacitor.pagerduty.service-key:
+    description: "The PagerDuty API URL should not need to be changed."
+    default: ""
+
+  kapacitor.pagerduty.url:
+    description: "The PagerDuty API URL should not need to be changed."
+    default: "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
+
+  kapacitor.pagerduty.global:
+    description: "If true the all alerts will be sent to PagerDuty without explicitly marking them in the TICKscript."
+    default: false
+
+  kapacitor.telegram.enabled:
+    description: "Configure Telegram."
+    default: false
+
+  kapacitor.telegram.url:
+    description: "The Telegram Bot URL should not need to be changed."
+    default: "https://api.telegram.org/bot"
+
+  kapacitor.telegram.token:
+    description: "Telegram Bot Token, can be obtained From @BotFather."
+    default: ""
+
+  kapacitor.telegram.chat-id:
+    description: "Default recipient for messages, Contact @myidbot on Telegram to get an ID."
+    default: ""
+
+  kapacitor.telegram.parse-mode:
+    description: "Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your alert message."
+
+  kapacitor.telegram.disable-web-page-preview:
+    description: "Disable link previews for links in this message"
+    default: false
+
+  kapacitor.telegram.disable-notification:
+    description: "Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound."
+    default: false
+
+  kapacitor.telegram.global:
+    description: "If true the all alerts will be sent to Telegram without explicitly marking them in the TICKscript."
+    default: false
+
+  kapacitor.telegram.state-changes-only:
+    description: "Only applies if global is true. Sets all alerts in state-changes-only mode, meaning alerts will only be sent if the alert state changes."
+    default: false
