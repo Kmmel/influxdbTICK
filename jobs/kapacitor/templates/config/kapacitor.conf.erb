@@ -186,14 +186,6 @@ default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
 #  environment = ""
 #  origin = ""
 #
-#[hipchat]
-#  enabled = false
-#  url = ""
-#  token = ""
-#  room = ""
-#  global = false
-#  state-changes-only = false
-#
 [opsgenie]
 <% if_p('kapacitor.opsgenie.enabled') do | kapacitor_opsgenie_enabled | %>
   enabled = <%= kapacitor_opsgenie_enabled %>
@@ -328,6 +320,26 @@ default-retention-policy  = "<%= kapacitor_default_retention_policy %>"
 <% end %>
 <% if_p('kapacitor.victorops.json') do | kapacitor_victorops_json | %>
   json = <%= kapacitor_victorops_json %>
+<% end %>
+
+[hipchat]
+<% if_p('kapacitor.hipchat.enabled') do | kapacitor_hipchat_enabled | %>
+  enabled = <%= kapacitor_hipchat_enabled %>
+<% end %>
+<% if_p('kapacitor.hipchat.url') do | kapacitor_hipchat_url | %>
+  url = "<%= kapacitor_hipchat_url %>"
+<% end %>
+<% if_p('kapacitor.hipchat.global') do | kapacitor_hipchat_global | %>
+  global = <%= kapacitor_hipchat_global %>
+<% end %>
+<% if_p('kapacitor.hipchat.state-changes-only') do | kapacitor_hipchat_state_changes_only | %>
+  state-changes-only = <%= kapacitor_hipchat_state_changes_only %>
+<% end %>
+<% if_p('kapacitor.hipchat.room') do | kapacitor_hipchat_room | %>
+  room = "<%= kapacitor_hipchat_room %>"
+<% end %>
+<% if_p('kapacitor.hipchat.token') do | kapacitor_hipchat_token | %>
+  token = "<%= kapacitor_hipchat_token %>"
 <% end %>
 #[kubernetes]
 #  enabled = false

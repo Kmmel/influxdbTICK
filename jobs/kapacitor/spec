@@ -389,3 +389,27 @@ properties:
   kapacitor.telegram.state-changes-only:
     description: "Only applies if global is true. Sets all alerts in state-changes-only mode, meaning alerts will only be sent if the alert state changes."
     default: false
+
+  kapacitor.hipchat.enabled:
+    description: "Enable HipChat configuration"
+    default: false
+
+  kapacitor.hipchat.url:
+    description: "The HipChat API URL. Replace subdomain with your HipChat subdomain.
+    default: "https://subdomain.hipchat.com/v2/room"
+
+  kapacitor.hipchat.room:
+    description: "Visit https://www.hipchat.com/docs/apiv2 for information on obtaining your room id and authentication token. Default room for messages"
+    default: ""
+
+  kapacitor.hipchat.token:
+    description: "Default authentication token"
+    default: ""
+
+  kapacitor.hipchat.global:
+    description: "If true then all alerts will be sent to HipChat without explicitly marking them in the TICKscript."
+    default: false
+
+  kapacitor.hipchat.state-changes-only:
+    description: "Only applies if global is true. Sets all alerts in state-changes-only mode, meaning alerts will only be sent if the alert state changes."
+    default: false
