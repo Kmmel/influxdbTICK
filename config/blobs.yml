@@ -1,5 +1,6 @@
 chronograf/chronograf-1.7.9_linux_amd64.tar.gz:
   size: 22217349
+  object_id: e3e0d05e-c5a0-4055-72ee-a8fdf89e2262
   sha: 1a5589985dd86a6c1786fa4f9f4dc7ecf9eef557
 influxdb/influxdb-1.7.4_linux_amd64.tar.gz:
   size: 46702654
