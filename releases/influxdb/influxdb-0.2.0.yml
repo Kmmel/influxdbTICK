@@ -1,0 +1,46 @@
+name: influxdb
+version: 0.2.0
+commit_hash: 6d52675
+uncommitted_changes: false
+jobs:
+- name: chronograf
+  version: 18826789fbdf3a7a916252f66cd947bfb2cc1481
+  fingerprint: 18826789fbdf3a7a916252f66cd947bfb2cc1481
+  sha1: 045c9df77be57a6f296c047e5cc554ea9dcfc2d2
+- name: influxdb
+  version: 8b9672a7876f273da98ce6e6730138f7caf98af3
+  fingerprint: 8b9672a7876f273da98ce6e6730138f7caf98af3
+  sha1: 5239759a83c9257c1290fcdc7a5575039d5ef582
+- name: kapacitor
+  version: 6183a3e7d7231b29e4c30a8bd5af7519660c82b6
+  fingerprint: 6183a3e7d7231b29e4c30a8bd5af7519660c82b6
+  sha1: d97d1da49781c1abfd2748d87f075614434ac28a
+- name: telegraf
+  version: 59647bfa4c995131fa7056420420df8ba08d7238
+  fingerprint: 59647bfa4c995131fa7056420420df8ba08d7238
+  sha1: 6aeb332478754a8cf26e16ee0992defb04b52343
+packages:
+- name: chronograf
+  version: bdaf449be159c994a6846a359f6d8b3be2135927
+  fingerprint: bdaf449be159c994a6846a359f6d8b3be2135927
+  sha1: 3704304fd9c434c761eb937a7401235575678467
+  dependencies: []
+- name: influxdb
+  version: 2eea8265ae909c22eb6b1eddaaaa5126ef99778b
+  fingerprint: 2eea8265ae909c22eb6b1eddaaaa5126ef99778b
+  sha1: 372c0faa09a2e913fcc684194c4b09893e632dd6
+  dependencies: []
+- name: kapacitor
+  version: 714c799ebf8e701a619d80f373136d73961971bf
+  fingerprint: 714c799ebf8e701a619d80f373136d73961971bf
+  sha1: 59587f933e58e72c10fa9ff211be33723ba10eee
+  dependencies: []
+- name: telegraf
+  version: 49c923a3203f9794d2aef35a01155457642c2a89
+  fingerprint: 49c923a3203f9794d2aef35a01155457642c2a89
+  sha1: 3dc7f13c739e36c0a519bccff18f7976d3d7e999
+  dependencies: []
+license:
+  version: 9b64d757631e1d48821aa3e23bd4edcddcaedba0
+  fingerprint: 9b64d757631e1d48821aa3e23bd4edcddcaedba0
+  sha1: 925bec15d801191f8e476a00beac62fe71d39492
