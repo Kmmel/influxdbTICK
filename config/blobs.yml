@@ -1,7 +1,7 @@
-chronograf/chronograf-1.7.9_linux_amd64.tar.gz:
-  size: 22217349
-  object_id: e3e0d05e-c5a0-4055-72ee-a8fdf89e2262
-  sha: 1a5589985dd86a6c1786fa4f9f4dc7ecf9eef557
+chronograf/chronograf-1.7.12_linux_amd64.tar.gz:
+  size: 23845308
+  object_id: 412ce5c8-3caf-4ed3-6962-cf7472d108ea
+  sha: 711829a486498a5c285c8d2e7505be39c940ddb1
 influxdb/influxdb-1.7.4_linux_amd64.tar.gz:
   size: 46702654
   object_id: b3b1ed70-33eb-4534-6674-1325ee50c326
@@ -10,7 +10,7 @@ kapacitor/kapacitor-1.5.2_linux_amd64.tar.gz:
   size: 32565369
   object_id: 4d8c06e4-135f-485c-6948-dab6d1030c58
   sha: 9f1bcc38938c69d9201139c20f491bdc55778691
-telegraf/telegraf-1.10.1_linux_amd64.tar.gz:
-  size: 18059860
-  object_id: fa6868c8-f031-421e-7c93-0b41bd1fb2c5
-  sha: c2ae55da7b089edcfa5154fca014ea0b4b7d0c47
+telegraf/telegraf-1.11.2_linux_amd64.tar.gz:
+  size: 20023891
+  object_id: f53593d9-d25f-4cd2-413a-68317be57824
+  sha: c995810740041a50054f63a92c7e5d378e464109
