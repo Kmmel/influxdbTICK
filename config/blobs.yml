@@ -2,15 +2,15 @@ chronograf/chronograf-1.7.12_linux_amd64.tar.gz:
   size: 23845308
   object_id: 412ce5c8-3caf-4ed3-6962-cf7472d108ea
   sha: 711829a486498a5c285c8d2e7505be39c940ddb1
-influxdb/influxdb-1.7.4_linux_amd64.tar.gz:
-  size: 46702654
-  object_id: b3b1ed70-33eb-4534-6674-1325ee50c326
-  sha: 87a0968c69f42e4434a51b8d053ef908bbcd8b69
-kapacitor/kapacitor-1.5.2_linux_amd64.tar.gz:
-  size: 32565369
-  object_id: 4d8c06e4-135f-485c-6948-dab6d1030c58
-  sha: 9f1bcc38938c69d9201139c20f491bdc55778691
-telegraf/telegraf-1.11.2_linux_amd64.tar.gz:
-  size: 20023891
-  object_id: f53593d9-d25f-4cd2-413a-68317be57824
-  sha: c995810740041a50054f63a92c7e5d378e464109
+influxdb/influxdb-1.8.1_linux_amd64.tar.gz:
+  size: 63463176
+  object_id: 331579c5-8923-4172-49cd-57f220ecdc51
+  sha: f51f1096ffcfb5149490bf2c7f3123101ced2a6b
+kapacitor/kapacitor-1.5.5_linux_amd64.tar.gz:
+  size: 35996765
+  object_id: ba509e15-7af3-498d-76eb-578770c5cccd
+  sha: 847ae29821d15a7c6fbfe9093307b6a0c4b0e5af
+telegraf/telegraf-1.14.5_linux_amd64.tar.gz:
+  size: 21115119
+  object_id: dc4eb9c8-578c-48de-57fb-b9c6a6ed1f66
+  sha: 5670d70bcd724af00afd44aced4c23d318962fa8
