@@ -116,6 +116,41 @@
   <% end %>
 <% end %>
 <% end %>
+<% if_p('telegraf.agent.outputs.graphite.enabled') do | enabled | %>
+<% if enabled %>
+# Configuration for Graphite server to send metrics to
+[[outputs.graphite]]
+  <% if_p('telefgraf.agent.outputs.graphite.server') do | server | %>
+  ## TCP endpoint for your graphite instance.
+  ## If multiple endpoints are configured, output will be load balanced.
+  ## Only one of the endpoints will be written to with each iteration.
+  servers = ["<%= server %>"]
+  <% end %>
+  <% if_p('telefgraf.agent.outputs.graphite.prefix') do | prefix | %>
+  ## Prefix metrics name
+  prefix = "<%= prefix %>"
+  <% end %>
+  <% if_p('telefgraf.agent.outputs.graphite.template') do | template | %>
+  ## Graphite output template
+  ## see https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_OUTPUT.md
+  template = "<%= template %>"
+  <% end %>
+
+  <% if_p('telefgraf.agent.outputs.graphite.enable_tag_support') do | enable | %>
+  ## Enable Graphite tags support
+  graphite_tag_support = <%= enable %>
+  <% end %>
+
+  <% if_p('telefgraf.agent.outputs.graphite.separator') do | separator | %>
+  ## Character for separating metric name and field for Graphite tags
+  graphite_separator = "<%= separator %>"
+  <% end %>
+
+  ## timeout in seconds for the write connection to graphite
+  timeout = 2
+<% end %>
+<% end %>
+
 <% if_p('telegraf.agent.inputs.vm_stats.enabled') do | enabled | %>
 <% if enabled %>
 [[inputs.cpu]]
