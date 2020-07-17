@@ -200,19 +200,19 @@ properties:
     description: "Enable configuration for graphite output"
     default: false
 
-  telefgraf.agent.outputs.graphite.server:
+  telegraf.agent.outputs.graphite.server:
     description: "TCP endpoint for graphite output, style: IP:PORT"
 
-  telefgraf.agent.outputs.graphite.prefix:
+  telegraf.agent.outputs.graphite.prefix:
     description: "Prefix metrics name"
 
-  telefgraf.agent.outputs.graphite.template:
+  telegraf.agent.outputs.graphite.template:
     description: "Graphite output template, e.g. host.tags.measurement.field"
 
-  telefgraf.agent.outputs.graphite.enable_tag_support:
+  telegraf.agent.outputs.graphite.enable_tag_support:
     description: "Enable tag support"
     default: false
 
-  telefgraf.agent.outputs.graphite.separator:
+  telegraf.agent.outputs.graphite.separator:
     description: "Configure graphite separator"
     default: "."
