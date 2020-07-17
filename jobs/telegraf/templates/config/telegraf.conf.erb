@@ -217,3 +217,33 @@
   <% end %>
 <% end %>
 <% end %>
+
+<% if_p('telegraf.agent.inputs.kube_inventory.enabled') do | enabled | %>
+<% if enabled %>
+[[inputs.kube_inventory]]
+  <% if_p('telegraf.agent.inputs.kube_inventory.url') do | url | %>
+  url = "<%= url %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.namespace') do | namespace | %>
+  namespace = "<%= namespace %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.bearer_token') do | bearer_token | %>
+  bearer_token = "<%= bearer_token %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.bearer_token_string') do | bearer_token_string | %>
+  bearer_token_string = "<%= bearer_token_string %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.response_timeout') do | response_timeout | %>
+  response_timeout = "<%= response_timeout %>"
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.resource_exclude') do | resource_exclude | %>
+  resource_exclude = <%= resource_exclude %>
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.resource_include') do | resource_include | %>
+  resource_include = <%= resource_include %>
+  <% end %>
+  <% if_p('telegraf.agent.inputs.kube_inventory.insecure_skip_verify') do | insecure_skip_verify | %>
+  insecure_skip_verify = <%= insecure_skip_verify %>
+  <% end %>
+<% end %>
+<% end %>

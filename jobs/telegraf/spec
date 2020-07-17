@@ -57,6 +57,38 @@ properties:
   telegraf.agent.inputs.consul.tag_delimiter:
     default: ":"
 
+  telegraf.agent.inputs.kube_inventory.enabled:
+    description: "Enables kube_inventory input"
+    default: false
+
+  telegraf.agent.inputs.kube_inventory.url:
+    description: "URL for the Kubernetes API"
+    default: "https://127.0.0.1"
+
+  telegraf.agent.inputs.kube_inventory.namespace:
+    description: 'Namespace to use. Set to "" to use all namespaces.'
+    default: "default"
+
+  telegraf.agent.inputs.kube_inventory.bearer_token:
+    description: "Use bearer token for authorization. ('bearer_token' takes priority), value should be path, e.g. '/path/to/bearer/token'"
+
+  telegraf.agent.inputs.kube_inventory.bearer_token_string:
+    description: "Token as string, e.g. 'abc_123'"
+
+  telegraf.agent.inputs.kube_inventory.response_timeout:
+    description: "Set response_timeout"
+    default: "5s"
+
+  telegraf.agent.inputs.kube_inventory.resource_exclude:
+    description: "Optional. Resources to exclude from gathering, should be an array in form of ['deployments','nodes','statefulsets']"
+
+  telegraf.agent.inputs.kube_inventory.resource_include:
+    description: "Optional. Resources to include when gathering. Overrides resource_exclude if both set. Should be an array."
+
+  telegraf.agent.inputs.kube_inventory.insecure_skip_verify:
+    description: "Use TLS but skip chain & host verification"
+    default: false
+
   telegraf.agent.inputs.syslog.enabled:
     description: "Enables syslog input"
     default: false
