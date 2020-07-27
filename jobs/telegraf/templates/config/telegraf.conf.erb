@@ -141,11 +141,6 @@
   graphite_tag_support = <%= enable %>
   <% end %>
 
-  <% if_p('telegraf.agent.outputs.graphite.separator') do | separator | %>
-  ## Character for separating metric name and field for Graphite tags
-  graphite_separator = "<%= separator %>"
-  <% end %>
-
   ## timeout in seconds for the write connection to graphite
   timeout = 2
 <% end %>

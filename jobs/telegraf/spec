@@ -244,7 +244,3 @@ properties:
   telegraf.agent.outputs.graphite.enable_tag_support:
     description: "Enable tag support"
     default: false
-
-  telegraf.agent.outputs.graphite.separator:
-    description: "Configure graphite separator"
-    default: "."
